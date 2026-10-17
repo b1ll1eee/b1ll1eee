@@ -6,7 +6,7 @@
 
 [![Email](https://img.shields.io/badge/Email-krirk.klomkliang%40gmail.com-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:krirk.klomkliang@gmail.com)
 [![Location](https://img.shields.io/badge/Bangkok-Thailand-2E8B57?style=flat-square&logo=googlemaps&logoColor=white)](#)
-[![Profile views](https://komarev.com/ghpvc/?username=b1ll1eee&style=flat-square&color=0e7c6b)](https://github.com/b1ll1eee)
+[![Open to work](https://img.shields.io/badge/Open%20to%20work-Backend%20%2F%20Full--stack-0e7c6b?style=flat-square&logo=github&logoColor=white)](mailto:krirk.klomkliang@gmail.com)
 
 </div>
 
@@ -27,7 +27,7 @@
 
 **Backend**
 
-<img src="https://skillicons.dev/icons?i=gin,spring,nodejs,express,nestjs,dotnet&theme=dark" alt="Gin, Spring Boot, Node.js, Express, NestJS, .NET" height="40" />
+<img src="https://skillicons.dev/icons?i=spring,nodejs,express,nestjs,dotnet&theme=dark" alt="Spring Boot, Node.js, Express, NestJS, .NET" height="40" />&nbsp;<img src="https://img.shields.io/badge/Gin-008ECF?style=for-the-badge&logo=gin&logoColor=white" alt="Gin" height="40" />
 
 **Frontend**
 
