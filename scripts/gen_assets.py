@@ -1,7 +1,7 @@
-"""Generate the profile SVGs (dark + light): hero, system, stack and pulse (from data/stats.json).
+"""Generate the profile SVGs (white theme): hero, pulse, system, timeline, stack.
 
 Usage: python3 scripts/gen_assets.py assets
-Minimal, schematic look: one accent colour, 1px lines, monospace labels.
+Minimal, schematic look on white: hairline rules, monospace labels, one accent for moving parts.
 """
 import json
 import os
@@ -11,10 +11,9 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else "assets"
 os.makedirs(OUT, exist_ok=True)
 
 THEMES = {
-    "dark": dict(bg="#0a0c10", line="#1f2630", text="#e6edf3", muted="#7d8590",
-                 dim="#4b535e", accent="#22d3ee"),
-    "light": dict(bg="#ffffff", line="#e3e7ec", text="#1f2328", muted="#656d76",
-                  dim="#9aa3ad", accent="#0891b2"),
+    # One theme only: white page, near-black ink, hairline rules, one accent for anything that moves.
+    "light": dict(bg="#ffffff", line="#e6e8eb", text="#111827", muted="#6b7280",
+                  dim="#9ca3af", accent="#0f766e"),
 }
 MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
 SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
@@ -31,8 +30,6 @@ def hero(t):
     W, H = 1200, 240
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Krirk Klomkliang, full-stack developer, Bangkok">
   <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
-  <!-- frame -->
-  <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
   <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
   <line x1="0" y1="{H-40}" x2="{W}" y2="{H-40}" stroke="{t["line"]}"/>
   <line x1="820" y1="40" x2="820" y2="{H-40}" stroke="{t["line"]}"/>
@@ -95,7 +92,6 @@ def system(t):
     main_path = f"M {xs[0]} {Y} L {xs[3]} {Y}"
     p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Signal path of a typical system: client to Gin edge to framework-free core to ports, then PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse and workers, with telemetry underneath">
   <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
-  <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
   {label(t, 24, 25, "SIGNAL PATH · A TYPICAL SERVICE I BUILD", 11, t["dim"], spacing=3)}
   {label(t, W-24, 25, "GO · PORTS &amp; ADAPTERS", 11, t["dim"], anchor="end", spacing=3)}
   <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
@@ -154,7 +150,6 @@ def stack(t):
     cell, icon, gap = 76, 26, 36
     p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Stack: Go, TypeScript, Python, PHP; Gin, Spring Boot, .NET; Vue, Nuxt, Next.js, Tailwind; PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse; Docker, GitHub Actions, Grafana, Prometheus">
   <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
-  <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
   {label(t, 24, 25, "STACK", 11, t["dim"], spacing=3)}
   {label(t, W-24, 25, "WHAT I REACH FOR FIRST", 11, t["dim"], anchor="end", spacing=3)}
   <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
@@ -194,7 +189,6 @@ def pulse(t, st):
     W, H = 1200, 130
     p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Public GitHub activity: {st["commits_30d"]} commits in the last {st["window_days"]} days, top languages, last push">
   <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
-  <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
   <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
   <line x1="440" y1="40" x2="440" y2="{H}" stroke="{t["line"]}"/>
   <line x1="860" y1="40" x2="860" y2="{H}" stroke="{t["line"]}"/>
@@ -254,7 +248,6 @@ def timeline(t):
     ]
     p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Experience: intern developer at Zip Event 2023; programmer at Tech Horizon 2024 to 2025 on a payment gateway; full-stack developer since 2025 on a real-time chat platform and an SMS platform">
   <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
-  <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
   <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
   {label(t, 24, 25, "EXPERIENCE", 11, t["dim"], spacing=3)}
   {label(t, W-24, 25, "2023 → NOW", 11, t["dim"], anchor="end", spacing=3)}
@@ -284,15 +277,15 @@ STATS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "dat
 STATS = json.load(open(STATS_PATH)) if os.path.exists(STATS_PATH) else None
 
 for name, t in THEMES.items():
-    with open(f"{OUT}/hero-{name}.svg", "w") as f:
+    with open(f"{OUT}/hero.svg", "w") as f:
         f.write(hero(t))
-    with open(f"{OUT}/system-{name}.svg", "w") as f:
+    with open(f"{OUT}/system.svg", "w") as f:
         f.write(system(t))
-    with open(f"{OUT}/stack-{name}.svg", "w") as f:
+    with open(f"{OUT}/stack.svg", "w") as f:
         f.write(stack(t))
-    with open(f"{OUT}/timeline-{name}.svg", "w") as f:
+    with open(f"{OUT}/timeline.svg", "w") as f:
         f.write(timeline(t))
     if STATS:
-        with open(f"{OUT}/pulse-{name}.svg", "w") as f:
+        with open(f"{OUT}/pulse.svg", "w") as f:
             f.write(pulse(t, STATS))
 print("written:", sorted(os.listdir(OUT)))
