@@ -2,6 +2,10 @@
   <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
   <img alt="Krirk Klomkliang. Full-stack developer in Bangkok. Go on the server, Vue and Next.js on the screen." src="assets/hero-light.svg" width="100%">
 </picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/pulse-dark.svg">
+  <img alt="Public GitHub activity, refreshed daily: commits in the last 30 days, language mix, last push." src="assets/pulse-light.svg" width="100%">
+</picture>
 
 Full-stack developer in Bangkok. I build Go services with a framework-free core, put Vue or Next.js in front of them, and run everything in Docker with Grafana watching. Right now: a real-time chat platform and an SMS product.
 

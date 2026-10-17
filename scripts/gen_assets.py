@@ -1,4 +1,4 @@
-"""Generate the profile SVGs (dark + light): hero.svg, system.svg and stack.svg.
+"""Generate the profile SVGs (dark + light): hero, system, stack and pulse (from data/stats.json).
 
 Usage: python3 scripts/gen_assets.py assets
 Minimal, schematic look: one accent colour, 1px lines, monospace labels.
@@ -179,6 +179,70 @@ def stack(t):
     return "\n".join(p)
 
 
+def _ago(now_iso, then_iso):
+    import datetime as dt
+    now = dt.datetime.fromisoformat(now_iso.replace("Z", "+00:00"))
+    then = dt.datetime.fromisoformat(then_iso.replace("Z", "+00:00"))
+    s = int((now - then).total_seconds())
+    if s < 3600: return f"{max(s // 60, 1)}m ago"
+    if s < 86400: return f"{s // 3600}h ago"
+    return f"{s // 86400}d ago"
+
+
+def pulse(t, st):
+    """Activity strip rendered from data/stats.json (refreshed by the stats workflow)."""
+    W, H = 1200, 130
+    p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Public GitHub activity: {st["commits_30d"]} commits in the last {st["window_days"]} days, top languages, last push">
+  <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
+  <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
+  <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
+  <line x1="440" y1="40" x2="440" y2="{H}" stroke="{t["line"]}"/>
+  <line x1="860" y1="40" x2="860" y2="{H}" stroke="{t["line"]}"/>
+  {label(t, 24, 25, "PUBLIC ACTIVITY", 11, t["dim"], spacing=3)}
+  {label(t, W-24, 25, "AUTO-REFRESHED " + st["generated_at"][:10].upper() + " UTC", 11, t["dim"], anchor="end", spacing=2)}''']
+    # --- commits sparkline ---
+    days = st["contributions_by_day"]; mx = max([d["count"] for d in days] + [1])
+    bw, gap, base, hmax = 8, 4, 112, 44
+    x0 = 24
+    for i, d in enumerate(days):
+        h = max(2, round(d["count"] / mx * hmax)) if d["count"] else 2
+        col = t["accent"] if d["count"] else t["line"]
+        p.append(f'<rect x="{x0 + i*(bw+gap)}" y="{base-h}" width="{bw}" height="{h}" fill="{col}" opacity="{0.95 if d["count"] else 1}"/>')
+    p.append(f'<text x="{x0 + 30*(bw+gap) + 16}" y="{base-2}" font-family="{MONO}" font-size="30" font-weight="600" fill="{t["text"]}">{st["commits_30d"]}</text>')
+    p.append(label(t, x0, 62, f"COMMITS · LAST {st['window_days']} DAYS", 10, t["dim"], spacing=2))
+    # --- languages bar ---
+    lx, lw = 464, 372
+    p.append(label(t, lx, 62, "LANGUAGES · PUBLIC REPOS", 10, t["dim"], spacing=2))
+    x = lx; y = 76
+    shades = [1.0, 0.75, 0.55, 0.4, 0.28]
+    for i, lang in enumerate(st["languages"]):
+        w = max(2, round(lang["share"] * lw) - 2)
+        p.append(f'<rect x="{x}" y="{y}" width="{w}" height="6" fill="{t["accent"]}" opacity="{shades[i]}"/>')
+        x += w + 2
+    x = lx
+    short = {"jupyter notebook": "jupyter", "javascript": "js", "typescript": "ts", "dockerfile": "docker"}
+    for i, lang in enumerate(st["languages"][:5]):
+        name = lang["name"].lower(); name = short.get(name, name)
+        text = f"{name} {round(lang['share']*100)}%"
+        if x + 12 + len(text) * 6.9 > lx + lw: break
+        p.append(f'<rect x="{x}" y="{y+22}" width="6" height="6" fill="{t["accent"]}" opacity="{shades[i]}"/>')
+        p.append(label(t, x + 12, y + 28, text, 11, t["muted"], spacing=0.3))
+        x += 12 + len(text) * 6.9 + 18
+    # --- last push / repos ---
+    rx = 884
+    p.append(label(t, rx, 62, "LAST PUSH", 10, t["dim"], spacing=2))
+    lp = st.get("last_push") or {"repo": "-", "at": st["generated_at"]}
+    p.append(label(t, rx, 86, lp["repo"], 14, t["text"], spacing=0, bold=True))
+    p.append(label(t, rx, 106, _ago(st["generated_at"], lp["at"]), 11, t["muted"], spacing=0.3))
+    p.append(label(t, W-24, 62, "PUBLIC REPOS", 10, t["dim"], anchor="end", spacing=2))
+    p.append(f'<text x="{W-24}" y="106" text-anchor="end" font-family="{MONO}" font-size="30" font-weight="600" fill="{t["text"]}">{st["public_repos"]}</text>')
+    p.append("</svg>\n")
+    return "\n".join(p)
+
+
+STATS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "stats.json")
+STATS = json.load(open(STATS_PATH)) if os.path.exists(STATS_PATH) else None
+
 for name, t in THEMES.items():
     with open(f"{OUT}/hero-{name}.svg", "w") as f:
         f.write(hero(t))
@@ -186,4 +250,7 @@ for name, t in THEMES.items():
         f.write(system(t))
     with open(f"{OUT}/stack-{name}.svg", "w") as f:
         f.write(stack(t))
+    if STATS:
+        with open(f"{OUT}/pulse-{name}.svg", "w") as f:
+            f.write(pulse(t, STATS))
 print("written:", sorted(os.listdir(OUT)))

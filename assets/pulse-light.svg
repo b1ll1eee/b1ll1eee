@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="130" viewBox="0 0 1200 130" role="img" aria-label="Public GitHub activity: 17 commits in the last 30 days, top languages, last push">
+  <rect width="1200" height="130" fill="#ffffff"/>
+  <rect x="0.5" y="0.5" width="1199" height="129" fill="none" stroke="#e3e7ec"/>
+  <line x1="0" y1="40" x2="1200" y2="40" stroke="#e3e7ec"/>
+  <line x1="440" y1="40" x2="440" y2="130" stroke="#e3e7ec"/>
+  <line x1="860" y1="40" x2="860" y2="130" stroke="#e3e7ec"/>
+  <text x="24" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#9aa3ad" text-anchor="start" letter-spacing="3">PUBLIC ACTIVITY</text>
+  <text x="1176" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#9aa3ad" text-anchor="end" letter-spacing="2">AUTO-REFRESHED 2026-10-17 UTC</text>
+<rect x="24" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="36" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="48" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="60" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="72" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="84" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="96" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="108" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="120" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="132" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="144" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="156" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="168" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="180" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="192" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="204" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="216" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="228" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="240" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="252" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="264" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="276" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="288" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="300" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="312" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="324" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="336" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="348" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="360" y="110" width="8" height="2" fill="#e3e7ec" opacity="1"/>
+<rect x="372" y="68" width="8" height="44" fill="#0891b2" opacity="0.95"/>
+<text x="400" y="110" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="30" font-weight="600" fill="#1f2328">17</text>
+<text x="24" y="62" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#9aa3ad" text-anchor="start" letter-spacing="2">COMMITS · LAST 30 DAYS</text>
+<text x="464" y="62" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#9aa3ad" text-anchor="start" letter-spacing="2">LANGUAGES · PUBLIC REPOS</text>
+<rect x="464" y="76" width="96" height="6" fill="#0891b2" opacity="1.0"/>
+<rect x="562" y="76" width="71" height="6" fill="#0891b2" opacity="0.75"/>
+<rect x="635" y="76" width="67" height="6" fill="#0891b2" opacity="0.55"/>
+<rect x="704" y="76" width="34" height="6" fill="#0891b2" opacity="0.4"/>
+<rect x="740" y="76" width="27" height="6" fill="#0891b2" opacity="0.28"/>
+<rect x="464" y="98" width="6" height="6" fill="#0891b2" opacity="1.0"/>
+<text x="476" y="104" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#656d76" text-anchor="start" letter-spacing="0.3">js 26%</text>
+<rect x="535.4" y="98" width="6" height="6" fill="#0891b2" opacity="0.75"/>
+<text x="547.4" y="104" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#656d76" text-anchor="start" letter-spacing="0.3">java 20%</text>
+<rect x="620.6" y="98" width="6" height="6" fill="#0891b2" opacity="0.55"/>
+<text x="632.6" y="104" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#656d76" text-anchor="start" letter-spacing="0.3">ts 18%</text>
+<rect x="692.0" y="98" width="6" height="6" fill="#0891b2" opacity="0.4"/>
+<text x="704.0" y="104" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#656d76" text-anchor="start" letter-spacing="0.3">html 10%</text>
+<rect x="777.2" y="98" width="6" height="6" fill="#0891b2" opacity="0.28"/>
+<text x="789.2" y="104" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#656d76" text-anchor="start" letter-spacing="0.3">go 8%</text>
+<text x="884" y="62" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#9aa3ad" text-anchor="start" letter-spacing="2">LAST PUSH</text>
+<text x="884" y="86" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#1f2328" text-anchor="start" letter-spacing="0" font-weight="600">morty-model</text>
+<text x="884" y="106" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#656d76" text-anchor="start" letter-spacing="0.3">1m ago</text>
+<text x="1176" y="62" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#9aa3ad" text-anchor="end" letter-spacing="2">PUBLIC REPOS</text>
+<text x="1176" y="106" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="30" font-weight="600" fill="#1f2328">11</text>
+</svg>
