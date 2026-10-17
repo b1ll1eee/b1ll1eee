@@ -28,9 +28,7 @@ for r in khong-dee-cron khong-dee-worker khong-dee-payment khong-dee-api khong-d
   gh repo edit "b1ll1eee/$r" --visibility private --accept-visibility-change-consequences >/dev/null && echo "private: $r"
 done
 
-# 4) Pin the repos that represent you best
-gh api graphql -f query='query{ user(login:"b1ll1eee"){ id repositories(first:100, ownerAffiliations:OWNER){ nodes{ id name } } } }' \
-  --jq '.data.user.repositories.nodes[] | select(.name=="scribe-api" or .name=="flow-do-api" or .name=="morty-model" or .name=="b1ll1eee") | .id' \
-  | while read -r id; do
-      gh api graphql -f query="mutation{ pinRepository(input:{repositoryId:\"$id\"}){ clientMutationId } }" >/dev/null
-    done && echo "pinned repos set"
+# 4) Pinned repos cannot be set through the public API.
+#    Do it once in the browser: https://github.com/b1ll1eee -> "Customize your pins"
+#    Suggested order: scribe-api, flow-do-api, morty-model, scribe-web
+echo "pin repos manually: https://github.com/b1ll1eee (Customize your pins)"
