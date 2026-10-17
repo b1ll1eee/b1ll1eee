@@ -4,7 +4,7 @@ set -eu
 
 # 1) Profile fields shown on the sidebar
 gh api -X PATCH /user \
-  -f name="Krirk (Bill) Klomkliang" \
+  -f name="Krirk Klomkliang" \
   -f bio="Full-Stack Developer · Go (Gin) · Vue/Next.js · real-time & payment systems · Hexagonal Architecture" \
   -f location="Bangkok, Thailand" \
   -f blog="https://github.com/b1ll1eee" \
