@@ -1,8 +1,9 @@
-"""Generate the profile SVGs (dark + light): hero.svg and system.svg.
+"""Generate the profile SVGs (dark + light): hero.svg, system.svg and stack.svg.
 
 Usage: python3 scripts/gen_assets.py assets
 Minimal, schematic look: one accent colour, 1px lines, monospace labels.
 """
+import json
 import os
 import sys
 
@@ -85,13 +86,14 @@ def node(t, x, y, name, sub=None, accent=False):
 
 
 def system(t):
-    W, H = 1200, 260
-    Y = 110          # main rail
+    W, H = 1200, 300
+    Y = 150          # main rail
     xs = [80, 300, 520, 740]   # client, edge, core, ports
-    stores = [(960, 60, "postgres", "truth"), (960, 110, "redis", "cache"),
-              (960, 160, "rabbitmq", "events"), (960, 210, "clickhouse", "analytics")]
+    stores = [(960, 60, "postgres", "truth"), (960, 105, "mongodb", "documents"),
+              (960, 150, "redis", "cache"), (960, 195, "rabbitmq", "events"),
+              (960, 240, "clickhouse", "analytics")]
     main_path = f"M {xs[0]} {Y} L {xs[3]} {Y}"
-    p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Signal path of a typical system: client to Gin edge to framework-free core to ports, then PostgreSQL, Redis, RabbitMQ, ClickHouse and workers, with telemetry underneath">
+    p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Signal path of a typical system: client to Gin edge to framework-free core to ports, then PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse and workers, with telemetry underneath">
   <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
   <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
   {label(t, 24, 25, "SIGNAL PATH · A TYPICAL SERVICE I BUILD", 11, t["dim"], spacing=3)}
@@ -104,7 +106,7 @@ def system(t):
     for sx, sy, _, _ in stores:
         p.append(f'<path d="M {xs[3]} {Y} C {xs[3]+100} {Y}, {sx-120} {sy}, {sx} {sy}" stroke="{t["line"]}" stroke-width="1" fill="none"/>')
     # stores -> workers (from rabbitmq)
-    p.append(f'<path d="M 1088 160 L 1116 160" stroke="{t["line"]}" stroke-width="1" fill="none"/>')
+    p.append(f'<path d="M 1088 195 L 1116 195" stroke="{t["line"]}" stroke-width="1" fill="none"/>')
     # core bracket (framework-free zone)
     p.append(f'<rect x="{xs[2]-80}" y="{Y-38}" width="160" height="94" fill="none" stroke="{t["accent"]}" stroke-width="1" stroke-dasharray="3 4" opacity="0.8"/>')
     p.append(label(t, xs[2], Y-46, "NO FRAMEWORK IMPORTS", 9, t["accent"], anchor="middle", spacing=2))
@@ -118,8 +120,8 @@ def system(t):
         p.append(f'<circle cx="{sx}" cy="{sy}" r="4" fill="{t["bg"]}" stroke="{t["text"]}" stroke-width="1.25"/>')
         p.append(label(t, sx+14, sy+4, n, 12, t["text"], spacing=0.5))
         p.append(label(t, sx+14+len(n)*7.6+8, sy+4, sub, 10, t["dim"], spacing=0.5))
-    p.append(f'<circle cx="1120" cy="160" r="4" fill="{t["bg"]}" stroke="{t["text"]}" stroke-width="1.25"/>')
-    p.append(label(t, 1120, 186, "workers", 12, t["text"], anchor="middle", spacing=0.5))
+    p.append(f'<circle cx="1120" cy="195" r="4" fill="{t["bg"]}" stroke="{t["text"]}" stroke-width="1.25"/>')
+    p.append(label(t, 1120, 221, "workers", 12, t["text"], anchor="middle", spacing=0.5))
 
     # moving packet along main rail, then onto one store path
     p.append(f'''<circle r="3" fill="{t["accent"]}">
@@ -136,9 +138,52 @@ def system(t):
     return "\n".join(p)
 
 
+ICONS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "icons.json")))
+GROUPS = [
+    ("LANGUAGES", [("go", "go"), ("typescript", "typescript"), ("python", "python"), ("php", "php")]),
+    ("BACKEND", [("gin", "gin"), ("springboot", "spring boot"), ("dotnet", ".net")]),
+    ("FRONTEND", [("vuedotjs", "vue"), ("nuxt", "nuxt"), ("nextdotjs", "next.js"), ("tailwindcss", "tailwind")]),
+    ("DATA", [("postgresql", "postgres"), ("mongodb", "mongodb"), ("redis", "redis"), ("rabbitmq", "rabbitmq"), ("clickhouse", "clickhouse")]),
+    ("OPS", [("docker", "docker"), ("githubactions", "actions"), ("grafana", "grafana"), ("prometheus", "prometheus")]),
+]
+ROWS = [GROUPS[:3], GROUPS[3:]]
+
+
+def stack(t):
+    W, H = 1200, 290
+    cell, icon, gap = 76, 26, 36
+    p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Stack: Go, TypeScript, Python, PHP; Gin, Spring Boot, .NET; Vue, Nuxt, Next.js, Tailwind; PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse; Docker, GitHub Actions, Grafana, Prometheus">
+  <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
+  <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
+  {label(t, 24, 25, "STACK", 11, t["dim"], spacing=3)}
+  {label(t, W-24, 25, "WHAT I REACH FOR FIRST", 11, t["dim"], anchor="end", spacing=3)}
+  <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
+  <line x1="0" y1="{40 + (H-40)//2}" x2="{W}" y2="{40 + (H-40)//2}" stroke="{t["line"]}"/>''']
+    row_h = (H - 40) // 2
+    for ri, groups in enumerate(ROWS):
+        top = 40 + ri * row_h
+        x = 24
+        for gi, (name, items) in enumerate(groups):
+            p.append(label(t, x, top + 30, name, 10, t["dim"], spacing=3))
+            for slug, text in items:
+                cx = x + cell / 2
+                iy = top + 50
+                sc = icon / 24
+                p.append(f'<g transform="translate({cx - icon/2:.1f} {iy}) scale({sc:.4f})"><path d="{ICONS[slug]}" fill="{t["text"]}" opacity="0.92"/></g>')
+                p.append(label(t, cx, iy + icon + 20, text, 10, t["muted"], anchor="middle", spacing=0.3))
+                x += cell
+            if gi < len(groups) - 1:
+                x += gap
+                p.append(f'<line x1="{x - gap/2}" y1="{top + 14}" x2="{x - gap/2}" y2="{top + row_h - 14}" stroke="{t["line"]}"/>')
+    p.append("</svg>\n")
+    return "\n".join(p)
+
+
 for name, t in THEMES.items():
     with open(f"{OUT}/hero-{name}.svg", "w") as f:
         f.write(hero(t))
     with open(f"{OUT}/system-{name}.svg", "w") as f:
         f.write(system(t))
+    with open(f"{OUT}/stack-{name}.svg", "w") as f:
+        f.write(stack(t))
 print("written:", sorted(os.listdir(OUT)))

@@ -7,15 +7,12 @@ Full-stack developer in Bangkok. I build Go services with a framework-free core,
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/system-dark.svg">
-  <img alt="Signal path of a typical service: client, Gin edge, framework-free core, ports, then PostgreSQL, Redis, RabbitMQ, ClickHouse and workers, with telemetry underneath." src="assets/system-light.svg" width="100%">
+  <img alt="Signal path of a typical service: client, Gin edge, framework-free core, ports, then PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse and workers, with telemetry underneath." src="assets/system-light.svg" width="100%">
 </picture>
 
-| | |
-|---|---|
-| `backend` | Go · Gin · hexagonal architecture |
-| `frontend` | Vue 3 + TypeScript · Nuxt · Next.js · Tailwind |
-| `data` | PostgreSQL · Redis · RabbitMQ · ClickHouse |
-| `ops` | Docker · GitHub Actions · Loki / Grafana / Tempo / Mimir |
-| `earlier` | Spring Boot · ASP.NET MVC · PHP · payment gateway work under PCI DSS |
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
+  <img alt="Stack: Go, TypeScript, Python, PHP. Gin, Spring Boot, .NET. Vue, Nuxt, Next.js, Tailwind. PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse. Docker, GitHub Actions, Grafana, Prometheus." src="assets/stack-light.svg" width="100%">
+</picture>
 
 <p align="center"><sub><a href="mailto:krirk.klomkliang@gmail.com">krirk.klomkliang@gmail.com</a> &nbsp;·&nbsp; Bangkok, Thailand</sub></p>
