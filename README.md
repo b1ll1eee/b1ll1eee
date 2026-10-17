@@ -1,6 +1,6 @@
 <div align="center">
 
-# Hi, I'm Krirk "Bill" Klomkliang 👋
+# Hi, I'm Krirk Klomkliang 👋
 
 **Full-Stack Developer** · Go backends, Vue / Next.js frontends, real-time & payment systems
 
