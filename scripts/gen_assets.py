@@ -266,6 +266,43 @@ def stack(t):
     return close(p)
 
 
+# ---------------------------------------------------------------- featured projects
+PROJECTS = [
+    ("yummy-hub", "FINAL-YEAR PROJECT", "Yummy Hub", "Marketplace for near-expiry food",
+     ["Two-step login: password, TOTP, then JWT", "PromptPay QR payments with slip approval",
+      "Customer, store owner and admin roles"],
+     "React · TypeScript · Spring Boot · MySQL"),
+    ("sign-language-recognition", "TEAM PROJECT · ML", "Sign Language Recognition",
+     "Thai sign language from a webcam, live",
+     ["17 signs from MediaPipe keypoints", "Stacked LSTM, 76% test accuracy",
+      "Django web UI with text-to-speech"],
+     "Python · TensorFlow · MediaPipe · Django"),
+    ("run-for-charity", "UNIVERSITY PROJECT", "Run for Charity", "Charity run events with paid sign-up",
+     ["PromptPay QR entry fees", "Four roles with approval chains",
+      "Organiser and admin dashboards"],
+     "React · Spring Boot · MySQL"),
+]
+
+
+def project(t, kicker, title, tagline, points, stack_line):
+    PW, PH = 400, 250
+    out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{PW}" height="{PH}" viewBox="0 0 {PW} {PH}" '
+           f'role="img" aria-label="{title}: {tagline}. {"; ".join(points)}. Stack: {stack_line}">',
+           f'<rect x="0.5" y="0.5" width="{PW-1}" height="{PH-1}" rx="12" fill="{t["card"]}" stroke="{t["line"]}"/>',
+           cap(t, 24, 36, kicker, fill="accent"),
+           f'<path d="M {PW-34} 36 L {PW-24} 26 M {PW-32} 26 L {PW-24} 26 L {PW-24} 34" fill="none" '
+           f'stroke="{t["dim"]}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+           text(t, 24, 68, title, 19, "text", weight=600, spacing=-0.2),
+           text(t, 24, 90, tagline, 13, "muted")]
+    for i, s in enumerate(points):
+        y = 124 + i * 24
+        out.append(f'<circle cx="28" cy="{y-4}" r="2.5" fill="{t["accent"]}"/>')
+        out.append(text(t, 40, y, s, 13, "text"))
+    out.append(f'<line x1="24" y1="{PH-46}" x2="{PW-24}" y2="{PH-46}" stroke="{t["soft"]}"/>')
+    out.append(text(t, 24, PH - 20, stack_line, 11, "dim", font=MONO))
+    return close(out)
+
+
 # ---------------------------------------------------------------- build
 STATS_PATH = os.path.join(HERE, "..", "data", "stats.json")
 STATS = json.load(open(STATS_PATH)) if os.path.exists(STATS_PATH) else None
@@ -274,6 +311,8 @@ for name, t in THEMES.items():
     files = {"hero": hero(t), "system": system(t), "timeline": timeline(t), "stack": stack(t)}
     if STATS:
         files["pulse"] = pulse(t, STATS)
+    for slug, *rest in PROJECTS:
+        files[f"project-{slug}"] = project(t, *rest)
     for key, svg in files.items():
         with open(f"{OUT}/{key}-{name}.svg", "w") as f:
             f.write(svg)

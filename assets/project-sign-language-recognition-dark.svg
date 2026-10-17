@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 400 250" role="img" aria-label="Sign Language Recognition: Thai sign language from a webcam, live. 17 signs from MediaPipe keypoints; Stacked LSTM, 76% test accuracy; Django web UI with text-to-speech. Stack: Python · TensorFlow · MediaPipe · Django">
+<rect x="0.5" y="0.5" width="399" height="249" rx="12" fill="#0d1117" stroke="#30363d"/>
+<text x="24" y="36" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="500" fill="#4493f8" text-anchor="start" letter-spacing="1.6">TEAM PROJECT · ML</text>
+<path d="M 366 36 L 376 26 M 368 26 L 376 26 L 376 34" fill="none" stroke="#6e7681" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="24" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#e6edf3" text-anchor="start" letter-spacing="-0.2">Sign Language Recognition</text>
+<text x="24" y="90" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#9198a1" text-anchor="start" letter-spacing="0">Thai sign language from a webcam, live</text>
+<circle cx="28" cy="120" r="2.5" fill="#4493f8"/>
+<text x="40" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#e6edf3" text-anchor="start" letter-spacing="0">17 signs from MediaPipe keypoints</text>
+<circle cx="28" cy="144" r="2.5" fill="#4493f8"/>
+<text x="40" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#e6edf3" text-anchor="start" letter-spacing="0">Stacked LSTM, 76% test accuracy</text>
+<circle cx="28" cy="168" r="2.5" fill="#4493f8"/>
+<text x="40" y="172" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#e6edf3" text-anchor="start" letter-spacing="0">Django web UI with text-to-speech</text>
+<line x1="24" y1="204" x2="376" y2="204" stroke="#21262d"/>
+<text x="24" y="230" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" letter-spacing="0">Python · TensorFlow · MediaPipe · Django</text>
+</svg>

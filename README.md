@@ -11,6 +11,21 @@
 
 Full-stack developer with a backend focus. I design Go services around a framework-free domain core, build Vue and Next.js frontends on top of them, and run everything in Docker with full observability on the LGTM stack. Previously delivered payment-gateway features under PCI DSS; currently working on a real-time chat platform and an SMS platform.
 
+<p>
+  <a href="https://github.com/b1ll1eee/yummy-hub"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/project-yummy-hub-dark.svg">
+    <img alt="Yummy Hub: marketplace for near-expiry food with TOTP MFA, JWT and PromptPay QR payments." src="assets/project-yummy-hub-light.svg" width="32%">
+  </picture></a>
+  <a href="https://github.com/b1ll1eee/sign-language-recognition"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/project-sign-language-recognition-dark.svg">
+    <img alt="Sign Language Recognition: real-time Thai sign language from a webcam using MediaPipe keypoints and an LSTM." src="assets/project-sign-language-recognition-light.svg" width="32%">
+  </picture></a>
+  <a href="https://github.com/b1ll1eee/run-for-charity"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/project-run-for-charity-dark.svg">
+    <img alt="Run for Charity: charity run events with PromptPay QR entry fees and multi-role approvals." src="assets/project-run-for-charity-light.svg" width="32%">
+  </picture></a>
+</p>
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/pulse-dark.svg">
   <img alt="Public GitHub activity, refreshed daily: commits in the last 30 days, language mix, last push." src="assets/pulse-light.svg" width="100%">
