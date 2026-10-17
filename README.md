@@ -13,6 +13,10 @@ Full-stack developer in Bangkok. I build Go services with a framework-free core,
   <source media="(prefers-color-scheme: dark)" srcset="assets/system-dark.svg">
   <img alt="Signal path of a typical service: client, Gin edge, framework-free core, ports, then PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse and workers, with telemetry underneath." src="assets/system-light.svg" width="100%">
 </picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/timeline-dark.svg">
+  <img alt="Experience: intern developer at Zip Event (2023), programmer at Tech Horizon on a payment gateway (2024 to 2025), full-stack developer on a real-time chat platform and an SMS platform (2025 to now)." src="assets/timeline-light.svg" width="100%">
+</picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">

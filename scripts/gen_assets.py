@@ -240,6 +240,46 @@ def pulse(t, st):
     return "\n".join(p)
 
 
+def timeline(t):
+    """Work history as a single rail with three stops."""
+    W, H = 1200, 190
+    Y = 72
+    stops = [
+        (130, "APR – JUN 2023", "intern developer", "Zip Event",
+         "public-space booking platform for Bangkok", "asp.net mvc · mongodb · bootstrap"),
+        (500, "MAR 2024 – MAR 2025", "programmer", "Tech Horizon",
+         "payment gateway (japan) · batch processing", "pci dss · parallel workloads · security reviews"),
+        (850, "MAY 2025 – NOW", "full-stack developer", "real-time chat platform · sms platform",
+         "high-traffic apis · agile sprints · observability", "go · gin · vue (ts) · rabbitmq · clickhouse"),
+    ]
+    p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Experience: intern developer at Zip Event 2023; programmer at Tech Horizon 2024 to 2025 on a payment gateway; full-stack developer since 2025 on a real-time chat platform and an SMS platform">
+  <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
+  <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
+  <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
+  {label(t, 24, 25, "EXPERIENCE", 11, t["dim"], spacing=3)}
+  {label(t, W-24, 25, "2023 → NOW", 11, t["dim"], anchor="end", spacing=3)}
+  <line x1="60" y1="{Y}" x2="{W-60}" y2="{Y}" stroke="{t["muted"]}" stroke-width="1"/>
+  <path d="M {W-66} {Y-4} L {W-58} {Y} L {W-66} {Y+4}" fill="none" stroke="{t["muted"]}" stroke-width="1"/>''']
+    for i, (x, when, role, org, line3, line4) in enumerate(stops):
+        current = i == len(stops) - 1
+        col = t["accent"] if current else t["text"]
+        p.append(label(t, x, Y - 14, when, 10, t["dim"], spacing=2))
+        p.append(f'<rect x="{x-5}" y="{Y-5}" width="10" height="10" fill="{t["accent"] if current else t["bg"]}" stroke="{col}" stroke-width="1.25"/>')
+        if current:
+            p.append(f'<rect x="{x-5}" y="{Y-5}" width="10" height="10" fill="none" stroke="{t["accent"]}" stroke-width="1">'
+                     f'<animate attributeName="x" values="{x-5};{x-13}" dur="2.4s" repeatCount="indefinite"/>'
+                     f'<animate attributeName="y" values="{Y-5};{Y-13}" dur="2.4s" repeatCount="indefinite"/>'
+                     f'<animate attributeName="width" values="10;26" dur="2.4s" repeatCount="indefinite"/>'
+                     f'<animate attributeName="height" values="10;26" dur="2.4s" repeatCount="indefinite"/>'
+                     f'<animate attributeName="opacity" values="0.8;0" dur="2.4s" repeatCount="indefinite"/></rect>')
+        p.append(label(t, x, Y + 30, role, 14, t["text"], spacing=0, bold=True))
+        p.append(label(t, x, Y + 50, org, 11, t["accent"] if current else t["muted"], spacing=0.3))
+        p.append(label(t, x, Y + 68, line3, 11, t["muted"], spacing=0.3))
+        p.append(label(t, x, Y + 86, line4, 10, t["dim"], spacing=0.3))
+    p.append("</svg>\n")
+    return "\n".join(p)
+
+
 STATS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "stats.json")
 STATS = json.load(open(STATS_PATH)) if os.path.exists(STATS_PATH) else None
 
@@ -250,6 +290,8 @@ for name, t in THEMES.items():
         f.write(system(t))
     with open(f"{OUT}/stack-{name}.svg", "w") as f:
         f.write(stack(t))
+    with open(f"{OUT}/timeline-{name}.svg", "w") as f:
+        f.write(timeline(t))
     if STATS:
         with open(f"{OUT}/pulse-{name}.svg", "w") as f:
             f.write(pulse(t, STATS))
