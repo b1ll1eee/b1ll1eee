@@ -13,8 +13,8 @@ Full-stack developer with a backend focus. I design Go services around a framewo
 
 <p>
 <a href="https://github.com/b1ll1eee/vindice-obs"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/flagship-dark.svg">
-  <img alt="Vindice: self-hosted observability for logs, traces and metrics. One Go binary with Kafka and ClickHouse, about 1.5 GB of RAM at idle." src="assets/flagship-light.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/b1ll1eee/b1ll1eee/main/assets/flagship-dark.svg">
+  <img alt="Vindice: self-hosted observability for logs, traces and metrics. One Go binary with Kafka and ClickHouse, about 1.5 GB of RAM at idle." src="https://raw.githubusercontent.com/b1ll1eee/b1ll1eee/main/assets/flagship-light.svg" width="100%">
 </picture></a>
 </p>
 
