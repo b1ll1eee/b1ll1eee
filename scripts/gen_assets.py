@@ -1,291 +1,280 @@
-"""Generate the profile SVGs (white theme): hero, pulse, system, timeline, stack.
+"""Generate the profile SVGs: hero, pulse, system, timeline, stack (dark + light).
 
 Usage: python3 scripts/gen_assets.py assets
-Minimal, schematic look on white: hairline rules, monospace labels, one accent for moving parts.
+Every panel is a rounded card with the same header, so the README reads as one document.
+Colours follow GitHub's own palette so the cards sit naturally on either theme.
 """
+import datetime as dt
 import json
 import os
 import sys
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else "assets"
 os.makedirs(OUT, exist_ok=True)
+HERE = os.path.dirname(os.path.abspath(__file__))
 
 THEMES = {
-    # One theme only: white page, near-black ink, hairline rules, one accent for anything that moves.
-    "light": dict(bg="#ffffff", line="#e6e8eb", text="#111827", muted="#6b7280",
-                  dim="#9ca3af", accent="#0f766e"),
+    "dark": dict(bg="#0d1117", card="#0d1117", line="#30363d", soft="#21262d", text="#e6edf3",
+                 muted="#9198a1", dim="#6e7681", accent="#4493f8"),
+    "light": dict(bg="#ffffff", card="#ffffff", line="#d1d9e0", soft="#eff2f5", text="#1f2328",
+                  muted="#59636e", dim="#818b98", accent="#0969da"),
 }
 MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
-SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif"
+W = 1200
 
 
-def label(t, x, y, s, size=12, fill=None, anchor="start", spacing=1.5, bold=False):
-    fill = fill or t["muted"]
-    w = ' font-weight="600"' if bold else ""
-    return (f'<text x="{x}" y="{y}" font-family="{MONO}" font-size="{size}" fill="{fill}" '
-            f'text-anchor="{anchor}" letter-spacing="{spacing}"{w}>{s}</text>')
+# ---------------------------------------------------------------- primitives
+def text(t, x, y, s, size=13, fill="text", anchor="start", weight=400, font=SANS, spacing=0):
+    return (f'<text x="{x}" y="{y}" font-family="{font}" font-size="{size}" font-weight="{weight}" '
+            f'fill="{t[fill]}" text-anchor="{anchor}" letter-spacing="{spacing}">{s}</text>')
 
 
+def cap(t, x, y, s, anchor="start", fill="dim"):
+    """Small uppercase caption used for field labels."""
+    return text(t, x, y, s, 10, fill, anchor, 500, MONO, 1.6)
+
+
+def card(t, H, title=None, meta=None, aria=""):
+    """Open an SVG with a rounded card and an optional header row."""
+    out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
+           f'role="img" aria-label="{aria}">',
+           f'<rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" rx="12" fill="{t["card"]}" stroke="{t["line"]}"/>']
+    if title:
+        out.append(text(t, 28, 29, title, 14, "text", weight=600))
+        if meta:
+            out.append(text(t, W - 28, 29, meta, 11, "dim", "end", font=MONO, spacing=0.4))
+        out.append(f'<line x1="1" y1="46" x2="{W-1}" y2="46" stroke="{t["line"]}"/>')
+    return out
+
+
+def close(parts):
+    parts.append("</svg>\n")
+    return "\n".join(parts)
+
+
+def pill(t, x, y, s):
+    w = int(len(s) * 7.0) + 26
+    return w, (f'<rect x="{x}" y="{y}" width="{w}" height="26" rx="13" fill="{t["soft"]}"/>'
+               + text(t, x + w / 2, y + 17, s, 12, "muted", "middle", 500))
+
+
+def pulse_dot(t, cx, cy):
+    return (f'<circle cx="{cx}" cy="{cy}" r="4" fill="{t["accent"]}"/>'
+            f'<circle cx="{cx}" cy="{cy}" r="4" fill="none" stroke="{t["accent"]}">'
+            f'<animate attributeName="r" values="4;10" dur="2.6s" repeatCount="indefinite"/>'
+            f'<animate attributeName="opacity" values="0.6;0" dur="2.6s" repeatCount="indefinite"/></circle>')
+
+
+# ---------------------------------------------------------------- hero
 def hero(t):
-    W, H = 1200, 240
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Krirk Klomkliang, full-stack developer, Bangkok">
-  <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
-  <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
-  <line x1="0" y1="{H-40}" x2="{W}" y2="{H-40}" stroke="{t["line"]}"/>
-  <line x1="820" y1="40" x2="820" y2="{H-40}" stroke="{t["line"]}"/>
+    H = 230
+    p = card(t, H, aria="Krirk Klomkliang, full-stack developer with a backend focus, Bangkok, Thailand")
+    p.append(cap(t, 32, 58, "FULL-STACK DEVELOPER · BACKEND FOCUS", fill="accent"))
+    p.append(text(t, 30, 108, "Krirk Klomkliang", 44, "text", weight=600, spacing=-0.6))
+    p.append(text(t, 32, 142, "I build Go services and Vue / Next.js frontends for real-time", 16, "muted"))
+    p.append(text(t, 32, 164, "messaging, payments and SMS platforms.", 16, "muted"))
+    x = 32
+    for s in ["Go", "Distributed systems", "Hexagonal architecture", "Observability"]:
+        w, svg = pill(t, x, 184, s)
+        p.append(svg)
+        x += w + 8
 
-  <!-- top rail -->
-  {label(t, 24, 25, "B1LL1EEE", 11, t["dim"], spacing=3)}
-  {label(t, 300, 25, "FULL-STACK DEVELOPER", 11, t["dim"], spacing=3)}
-  {label(t, W-24, 25, "BANGKOK · 13.75N 100.50E", 11, t["dim"], anchor="end", spacing=2)}
-
-  <!-- name -->
-  <text x="24" y="118" font-family="{SANS}" font-size="40" font-weight="600" fill="{t["text"]}" letter-spacing="-0.5">Krirk Klomkliang</text>
-  <text x="26" y="150" font-family="{MONO}" font-size="14" fill="{t["muted"]}">Go on the server. Vue and Next.js on the screen. Boring in production, on purpose.</text>
-
-  <!-- status panel -->
-  {label(t, 844, 76, "STATUS", 10, t["dim"], spacing=3)}
-  <circle cx="850" cy="99" r="4" fill="{t["accent"]}">
-    <animate attributeName="opacity" values="1;0.25;1" dur="2.4s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="850" cy="99" r="4" fill="none" stroke="{t["accent"]}" stroke-width="1">
-    <animate attributeName="r" values="4;11" dur="2.4s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.7;0" dur="2.4s" repeatCount="indefinite"/>
-  </circle>
-  {label(t, 866, 103, "building real-time chat + sms platform", 12, t["text"], spacing=0)}
-  {label(t, 844, 134, "STACK", 10, t["dim"], spacing=3)}
-  {label(t, 844, 156, "go · typescript · python", 12, t["text"], spacing=0)}
-  {label(t, 1050, 134, "SINCE", 10, t["dim"], spacing=3)}
-  {label(t, 1050, 156, "2023", 12, t["text"], spacing=0)}
-  {label(t, 1118, 134, "OPEN TO", 10, t["dim"], spacing=3)}
-  {label(t, 1118, 156, "backend", 12, t["text"], spacing=0)}
-
-  <!-- bottom rail with scanner -->
-  <rect x="0" y="{H-40}" width="{W}" height="39" fill="none"/>
-  <line x1="24" y1="{H-20}" x2="{W-24}" y2="{H-20}" stroke="{t["line"]}"/>
-  <rect x="24" y="{H-21}" width="90" height="2" fill="{t["accent"]}" opacity="0.9">
-    <animate attributeName="x" values="24;{W-24-90};24" dur="9s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
-  </rect>
-  {label(t, 24, H-27, "SYS", 9, t["dim"], spacing=3)}
-  {label(t, W-24, H-27, "v2026.10", 9, t["dim"], anchor="end", spacing=2)}
-</svg>
-'''
+    # facts panel
+    p.append(f'<line x1="880" y1="28" x2="880" y2="{H-28}" stroke="{t["line"]}"/>')
+    cols, rows = [910, 1060], [66, 136]
+    facts = [("LOCATION", "Bangkok, Thailand"), ("EXPERIENCE", "Since 2023"),
+             ("FOCUS", "Backend · Go"), ("STATUS", "Open to roles")]
+    for i, (k, v) in enumerate(facts):
+        cx, cy = cols[i % 2], rows[i // 2]
+        p.append(cap(t, cx, cy, k))
+        if k == "STATUS":
+            p.append(pulse_dot(t, cx + 4, cy + 20))
+            p.append(text(t, cx + 16, cy + 25, v, 15, "text", weight=500))
+        else:
+            p.append(text(t, cx, cy + 25, v, 15, "text", weight=500))
+    return close(p)
 
 
-def node(t, x, y, name, sub=None, accent=False):
-    """Small square node with labels underneath."""
+# ---------------------------------------------------------------- activity
+def _ago(now_iso, then_iso):
+    now = dt.datetime.fromisoformat(now_iso.replace("Z", "+00:00"))
+    then = dt.datetime.fromisoformat(then_iso.replace("Z", "+00:00"))
+    s = int((now - then).total_seconds())
+    if s < 3600:
+        return f"{max(s // 60, 1)} min ago"
+    if s < 86400:
+        return f"{s // 3600} h ago"
+    return f"{s // 86400} d ago"
+
+
+def pulse(t, st):
+    H = 150
+    p = card(t, H, "GitHub activity", f"updated {st['generated_at'][:10]}",
+             f"Public GitHub activity: {st['commits_30d']} commits in the last {st['window_days']} days")
+    for x in (420, 840):
+        p.append(f'<line x1="{x}" y1="62" x2="{x}" y2="{H-18}" stroke="{t["line"]}"/>')
+
+    # commits
+    p.append(cap(t, 28, 74, f"COMMITS · LAST {st['window_days']} DAYS"))
+    days = st["contributions_by_day"]
+    mx = max([d["count"] for d in days] + [1])
+    base, hmax = 128, 40
+    for i, d in enumerate(days):
+        h = max(2, round(d["count"] / mx * hmax)) if d["count"] else 2
+        col = t["accent"] if d["count"] else t["soft"]
+        p.append(f'<rect x="{28 + i*9}" y="{base-h}" width="6" height="{h}" rx="1" fill="{col}"/>')
+    p.append(text(t, 396, 128, str(st["commits_30d"]), 32, "text", "end", 600))
+
+    # languages
+    lx, lw = 448, 364
+    p.append(cap(t, lx, 74, "LANGUAGES · PUBLIC REPOS"))
+    shades = [1.0, 0.72, 0.52, 0.36, 0.24]
+    x = lx
+    for i, lang in enumerate(st["languages"]):
+        w = max(2, round(lang["share"] * lw) - 2)
+        r = ' rx="3"' if i in (0, len(st["languages"]) - 1) else ""
+        p.append(f'<rect x="{x}" y="90" width="{w}" height="8"{r} fill="{t["accent"]}" opacity="{shades[i]}"/>')
+        x += w + 2
+    x = lx
+    for i, lang in enumerate(st["languages"]):
+        s = f"{lang['name']} {round(lang['share']*100)}%"
+        if x + 12 + len(s) * 6.8 > lx + lw:
+            break
+        p.append(f'<rect x="{x}" y="113" width="8" height="8" rx="2" fill="{t["accent"]}" opacity="{shades[i]}"/>')
+        p.append(text(t, x + 14, 122, s, 12, "muted"))
+        x += 14 + len(s) * 6.8 + 16
+
+    # last push / repos
+    lp = st.get("last_push") or {"repo": "-", "at": st["generated_at"]}
+    p.append(cap(t, 868, 74, "LAST PUSH"))
+    p.append(text(t, 868, 102, lp["repo"], 16, "text", weight=600))
+    p.append(text(t, 868, 124, _ago(st["generated_at"], lp["at"]), 12, "muted"))
+    p.append(cap(t, W - 28, 74, "PUBLIC REPOS", "end"))
+    p.append(text(t, W - 28, 128, str(st["public_repos"]), 32, "text", "end", 600))
+    return close(p)
+
+
+# ---------------------------------------------------------------- architecture
+def node(t, x, y, name, sub, accent=False):
     col = t["accent"] if accent else t["text"]
-    s = f'<rect x="{x-5}" y="{y-5}" width="10" height="10" fill="{t["bg"]}" stroke="{col}" stroke-width="1.25"/>'
-    s += label(t, x, y + 26, name, 12, t["text"], anchor="middle", spacing=0.5)
-    if sub:
-        s += label(t, x, y + 42, sub, 10, t["dim"], anchor="middle", spacing=0.5)
-    return s
+    return (f'<rect x="{x-6}" y="{y-6}" width="12" height="12" rx="3" fill="{t["card"]}" stroke="{col}" stroke-width="1.5"/>'
+            + text(t, x, y + 30, name, 14, "text", "middle", 600)
+            + text(t, x, y + 48, sub, 11, "dim", "middle", font=MONO))
 
 
 def system(t):
-    W, H = 1200, 300
-    Y = 150          # main rail
-    xs = [80, 300, 520, 740]   # client, edge, core, ports
-    stores = [(960, 60, "postgres", "truth"), (960, 105, "mongodb", "documents"),
-              (960, 150, "redis", "cache"), (960, 195, "rabbitmq", "events"),
-              (960, 240, "clickhouse", "analytics")]
-    main_path = f"M {xs[0]} {Y} L {xs[3]} {Y}"
-    p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Signal path of a typical system: client to Gin edge to framework-free core to ports, then PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse and workers, with telemetry underneath">
-  <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
-  {label(t, 24, 25, "SIGNAL PATH · A TYPICAL SERVICE I BUILD", 11, t["dim"], spacing=3)}
-  {label(t, W-24, 25, "GO · PORTS &amp; ADAPTERS", 11, t["dim"], anchor="end", spacing=3)}
-  <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
-
-  <!-- rails -->
-  <path d="{main_path}" stroke="{t["muted"]}" stroke-width="1" fill="none"/>''']
-    # fan-out from ports to stores
+    H = 310
+    Y = 160
+    xs = [90, 310, 530, 750]
+    stores = [(940, 72, "PostgreSQL", "source of truth"), (940, 116, "MongoDB", "documents"),
+              (940, 160, "Redis", "cache · sessions"), (940, 204, "RabbitMQ", "events → workers"),
+              (940, 248, "ClickHouse", "analytics")]
+    rail = f"M {xs[0]} {Y} L {xs[3]} {Y}"
+    p = card(t, H, "Architecture", "how I structure a Go service",
+             "Typical service: client, Gin HTTP edge, framework-free domain core, ports, then PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse and workers")
+    p.append(f'<path d="{rail}" stroke="{t["muted"]}" stroke-width="1.25" fill="none"/>')
     for sx, sy, _, _ in stores:
-        p.append(f'<path d="M {xs[3]} {Y} C {xs[3]+100} {Y}, {sx-120} {sy}, {sx} {sy}" stroke="{t["line"]}" stroke-width="1" fill="none"/>')
-    # stores -> workers (from rabbitmq)
-    p.append(f'<path d="M 1088 195 L 1116 195" stroke="{t["line"]}" stroke-width="1" fill="none"/>')
-    # core bracket (framework-free zone)
-    p.append(f'<rect x="{xs[2]-80}" y="{Y-38}" width="160" height="94" fill="none" stroke="{t["accent"]}" stroke-width="1" stroke-dasharray="3 4" opacity="0.8"/>')
-    p.append(label(t, xs[2], Y-46, "NO FRAMEWORK IMPORTS", 9, t["accent"], anchor="middle", spacing=2))
-
-    # nodes
-    p.append(node(t, xs[0], Y, "client", "vue · next.js"))
-    p.append(node(t, xs[1], Y, "edge", "gin http · auth"))
-    p.append(node(t, xs[2], Y, "core", "domain · services", accent=True))
-    p.append(node(t, xs[3], Y, "ports", "interfaces only"))
+        p.append(f'<path d="M {xs[3]} {Y} C {xs[3]+110} {Y}, {sx-120} {sy}, {sx} {sy}" stroke="{t["line"]}" stroke-width="1.25" fill="none"/>')
+    p.append(f'<rect x="{xs[2]-86}" y="{Y-40}" width="172" height="100" rx="10" fill="none" stroke="{t["accent"]}" stroke-dasharray="4 4" opacity="0.7"/>')
+    p.append(cap(t, xs[2], Y - 50, "FRAMEWORK-FREE CORE", "middle", "accent"))
+    p.append(node(t, xs[0], Y, "Client", "Vue · Next.js"))
+    p.append(node(t, xs[1], Y, "HTTP edge", "Gin · auth"))
+    p.append(node(t, xs[2], Y, "Domain", "services · rules", accent=True))
+    p.append(node(t, xs[3], Y, "Ports", "interfaces"))
     for sx, sy, n, sub in stores:
-        p.append(f'<circle cx="{sx}" cy="{sy}" r="4" fill="{t["bg"]}" stroke="{t["text"]}" stroke-width="1.25"/>')
-        p.append(label(t, sx+14, sy+4, n, 12, t["text"], spacing=0.5))
-        p.append(label(t, sx+14+len(n)*7.6+8, sy+4, sub, 10, t["dim"], spacing=0.5))
-    p.append(f'<circle cx="1120" cy="195" r="4" fill="{t["bg"]}" stroke="{t["text"]}" stroke-width="1.25"/>')
-    p.append(label(t, 1120, 221, "workers", 12, t["text"], anchor="middle", spacing=0.5))
-
-    # moving packet along main rail, then onto one store path
-    p.append(f'''<circle r="3" fill="{t["accent"]}">
-    <animateMotion dur="4s" repeatCount="indefinite" path="{main_path} C {xs[3]+100} {Y}, 840 60, 960 60" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
-    <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.05;0.9;0.97;1" dur="4s" repeatCount="indefinite"/>
-  </circle>''')
-
-    # telemetry rail at bottom
-    p.append(f'<line x1="0" y1="{H-40}" x2="{W}" y2="{H-40}" stroke="{t["line"]}"/>')
-    p.append(label(t, 24, H-16, "TELEMETRY", 10, t["dim"], spacing=3))
-    p.append(label(t, 120, H-16, "loki · tempo · mimir · grafana · prometheus", 11, t["muted"], spacing=0.5))
-    p.append(label(t, W-24, H-16, "docker · github actions", 11, t["muted"], anchor="end", spacing=0.5))
-    p.append("</svg>\n")
-    return "\n".join(p)
+        p.append(f'<circle cx="{sx}" cy="{sy}" r="5" fill="{t["card"]}" stroke="{t["text"]}" stroke-width="1.5"/>')
+        p.append(text(t, sx + 16, sy + 5, n, 14, "text", weight=600))
+        p.append(text(t, sx + 112, sy + 5, sub, 11, "dim", font=MONO))
+    p.append(f'''<circle r="3.5" fill="{t["accent"]}">
+  <animateMotion dur="4.5s" repeatCount="indefinite" path="{rail} C {xs[3]+110} {Y}, 830 72, 940 72"/>
+  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.06;0.92;1" dur="4.5s" repeatCount="indefinite"/>
+</circle>''')
+    p.append(f'<line x1="1" y1="{H-44}" x2="{W-1}" y2="{H-44}" stroke="{t["line"]}"/>')
+    p.append(cap(t, 28, H - 18, "OBSERVABILITY"))
+    p.append(text(t, 150, H - 18, "Loki · Tempo · Mimir · Grafana · Prometheus", 12, "muted"))
+    p.append(text(t, W - 28, H - 18, "Shipped with Docker and GitHub Actions", 12, "muted", "end"))
+    return close(p)
 
 
-ICONS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "icons.json")))
+# ---------------------------------------------------------------- experience
+def timeline(t):
+    H = 210
+    Y = 92
+    stops = [
+        (80, "Apr – Jun 2023", "Intern Developer", "Zip Event",
+         "Public-space booking platform, Bangkok", "ASP.NET MVC · MongoDB · Bootstrap"),
+        (460, "Mar 2024 – Mar 2025", "Programmer", "Tech Horizon",
+         "Payment gateway for the Japanese market", "PCI DSS · batch & parallel processing"),
+        (840, "May 2025 – Present", "Full-Stack Developer", "Real-time chat · SMS platform",
+         "High-traffic APIs and observability", "Go · Gin · Vue (TS) · RabbitMQ · ClickHouse"),
+    ]
+    p = card(t, H, "Experience", "2023 – present",
+             "Experience: Intern Developer at Zip Event 2023; Programmer at Tech Horizon 2024 to 2025; Full-Stack Developer since 2025")
+    p.append(f'<line x1="40" y1="{Y}" x2="{W-40}" y2="{Y}" stroke="{t["line"]}" stroke-width="1.25"/>')
+    for i, (x, when, role, org, l3, l4) in enumerate(stops):
+        cur = i == len(stops) - 1
+        p.append(text(t, x, Y - 16, when, 11, "dim", font=MONO, spacing=0.3))
+        if cur:
+            p.append(pulse_dot(t, x + 5, Y))
+        else:
+            p.append(f'<circle cx="{x+5}" cy="{Y}" r="5" fill="{t["card"]}" stroke="{t["muted"]}" stroke-width="1.5"/>')
+        p.append(text(t, x, Y + 34, role, 16, "text", weight=600))
+        p.append(text(t, x, Y + 54, org, 13, "accent" if cur else "muted", weight=500))
+        p.append(text(t, x, Y + 76, l3.replace("&", "&amp;"), 12, "muted"))
+        p.append(text(t, x, Y + 94, l4.replace("&", "&amp;"), 11, "dim", font=MONO))
+    return close(p)
+
+
+# ---------------------------------------------------------------- stack
+ICONS = json.load(open(os.path.join(HERE, "icons.json")))
 GROUPS = [
-    ("LANGUAGES", [("go", "go"), ("typescript", "typescript"), ("python", "python"), ("php", "php")]),
-    ("BACKEND", [("gin", "gin"), ("springboot", "spring boot"), ("dotnet", ".net")]),
-    ("FRONTEND", [("vuedotjs", "vue"), ("nuxt", "nuxt"), ("nextdotjs", "next.js"), ("tailwindcss", "tailwind")]),
-    ("DATA", [("postgresql", "postgres"), ("mongodb", "mongodb"), ("redis", "redis"), ("rabbitmq", "rabbitmq"), ("clickhouse", "clickhouse")]),
-    ("OPS", [("docker", "docker"), ("githubactions", "actions"), ("grafana", "grafana"), ("prometheus", "prometheus")]),
+    ("LANGUAGES", [("go", "Go"), ("typescript", "TypeScript"), ("python", "Python"), ("php", "PHP")]),
+    ("BACKEND", [("gin", "Gin"), ("springboot", "Spring Boot"), ("dotnet", ".NET")]),
+    ("FRONTEND", [("vuedotjs", "Vue"), ("nuxt", "Nuxt"), ("nextdotjs", "Next.js"), ("tailwindcss", "Tailwind")]),
+    ("DATA", [("postgresql", "PostgreSQL"), ("mongodb", "MongoDB"), ("redis", "Redis"),
+              ("rabbitmq", "RabbitMQ"), ("clickhouse", "ClickHouse")]),
+    ("DEVOPS", [("docker", "Docker"), ("githubactions", "Actions"), ("grafana", "Grafana"),
+                ("prometheus", "Prometheus")]),
 ]
 ROWS = [GROUPS[:3], GROUPS[3:]]
 
 
 def stack(t):
-    W, H = 1200, 290
-    cell, icon, gap = 76, 26, 36
-    p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Stack: Go, TypeScript, Python, PHP; Gin, Spring Boot, .NET; Vue, Nuxt, Next.js, Tailwind; PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse; Docker, GitHub Actions, Grafana, Prometheus">
-  <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
-  {label(t, 24, 25, "STACK", 11, t["dim"], spacing=3)}
-  {label(t, W-24, 25, "WHAT I REACH FOR FIRST", 11, t["dim"], anchor="end", spacing=3)}
-  <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
-  <line x1="0" y1="{40 + (H-40)//2}" x2="{W}" y2="{40 + (H-40)//2}" stroke="{t["line"]}"/>''']
-    row_h = (H - 40) // 2
+    H = 300
+    cell, icon, gap = 80, 26, 36
+    p = card(t, H, "Technical skills", "tools I use day to day",
+             "Skills: Go, TypeScript, Python, PHP; Gin, Spring Boot, .NET; Vue, Nuxt, Next.js, Tailwind; "
+             "PostgreSQL, MongoDB, Redis, RabbitMQ, ClickHouse; Docker, GitHub Actions, Grafana, Prometheus")
+    row_h = (H - 46) // 2
+    p.append(f'<line x1="28" y1="{46 + row_h}" x2="{W-28}" y2="{46 + row_h}" stroke="{t["soft"]}"/>')
     for ri, groups in enumerate(ROWS):
-        top = 40 + ri * row_h
-        x = 24
+        top = 46 + ri * row_h
+        x = 28
         for gi, (name, items) in enumerate(groups):
-            p.append(label(t, x, top + 30, name, 10, t["dim"], spacing=3))
-            for slug, text in items:
+            p.append(cap(t, x, top + 30, name))
+            for slug, label in items:
                 cx = x + cell / 2
-                iy = top + 50
-                sc = icon / 24
-                p.append(f'<g transform="translate({cx - icon/2:.1f} {iy}) scale({sc:.4f})"><path d="{ICONS[slug]}" fill="{t["text"]}" opacity="0.92"/></g>')
-                p.append(label(t, cx, iy + icon + 20, text, 10, t["muted"], anchor="middle", spacing=0.3))
+                iy = top + 48
+                p.append(f'<g transform="translate({cx - icon/2:.1f} {iy}) scale({icon/24:.4f})">'
+                         f'<path d="{ICONS[slug]}" fill="{t["text"]}"/></g>')
+                p.append(text(t, cx, iy + icon + 22, label, 12, "muted", "middle"))
                 x += cell
             if gi < len(groups) - 1:
                 x += gap
-                p.append(f'<line x1="{x - gap/2}" y1="{top + 14}" x2="{x - gap/2}" y2="{top + row_h - 14}" stroke="{t["line"]}"/>')
-    p.append("</svg>\n")
-    return "\n".join(p)
+                p.append(f'<line x1="{x - gap/2}" y1="{top + 18}" x2="{x - gap/2}" y2="{top + row_h - 14}" stroke="{t["soft"]}"/>')
+    return close(p)
 
 
-def _ago(now_iso, then_iso):
-    import datetime as dt
-    now = dt.datetime.fromisoformat(now_iso.replace("Z", "+00:00"))
-    then = dt.datetime.fromisoformat(then_iso.replace("Z", "+00:00"))
-    s = int((now - then).total_seconds())
-    if s < 3600: return f"{max(s // 60, 1)}m ago"
-    if s < 86400: return f"{s // 3600}h ago"
-    return f"{s // 86400}d ago"
-
-
-def pulse(t, st):
-    """Activity strip rendered from data/stats.json (refreshed by the stats workflow)."""
-    W, H = 1200, 130
-    p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Public GitHub activity: {st["commits_30d"]} commits in the last {st["window_days"]} days, top languages, last push">
-  <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
-  <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
-  <line x1="440" y1="40" x2="440" y2="{H}" stroke="{t["line"]}"/>
-  <line x1="860" y1="40" x2="860" y2="{H}" stroke="{t["line"]}"/>
-  {label(t, 24, 25, "PUBLIC ACTIVITY", 11, t["dim"], spacing=3)}
-  {label(t, W-24, 25, "AUTO-REFRESHED " + st["generated_at"][:10].upper() + " UTC", 11, t["dim"], anchor="end", spacing=2)}''']
-    # --- commits sparkline ---
-    days = st["contributions_by_day"]; mx = max([d["count"] for d in days] + [1])
-    bw, gap, base, hmax = 8, 4, 112, 44
-    x0 = 24
-    for i, d in enumerate(days):
-        h = max(2, round(d["count"] / mx * hmax)) if d["count"] else 2
-        col = t["accent"] if d["count"] else t["line"]
-        p.append(f'<rect x="{x0 + i*(bw+gap)}" y="{base-h}" width="{bw}" height="{h}" fill="{col}" opacity="{0.95 if d["count"] else 1}"/>')
-    p.append(f'<text x="{x0 + 30*(bw+gap) + 16}" y="{base-2}" font-family="{MONO}" font-size="30" font-weight="600" fill="{t["text"]}">{st["commits_30d"]}</text>')
-    p.append(label(t, x0, 62, f"COMMITS · LAST {st['window_days']} DAYS", 10, t["dim"], spacing=2))
-    # --- languages bar ---
-    lx, lw = 464, 372
-    p.append(label(t, lx, 62, "LANGUAGES · PUBLIC REPOS", 10, t["dim"], spacing=2))
-    x = lx; y = 76
-    shades = [1.0, 0.75, 0.55, 0.4, 0.28]
-    for i, lang in enumerate(st["languages"]):
-        w = max(2, round(lang["share"] * lw) - 2)
-        p.append(f'<rect x="{x}" y="{y}" width="{w}" height="6" fill="{t["accent"]}" opacity="{shades[i]}"/>')
-        x += w + 2
-    x = lx
-    short = {"jupyter notebook": "jupyter", "javascript": "js", "typescript": "ts", "dockerfile": "docker"}
-    for i, lang in enumerate(st["languages"][:5]):
-        name = lang["name"].lower(); name = short.get(name, name)
-        text = f"{name} {round(lang['share']*100)}%"
-        if x + 12 + len(text) * 6.9 > lx + lw: break
-        p.append(f'<rect x="{x}" y="{y+22}" width="6" height="6" fill="{t["accent"]}" opacity="{shades[i]}"/>')
-        p.append(label(t, x + 12, y + 28, text, 11, t["muted"], spacing=0.3))
-        x += 12 + len(text) * 6.9 + 18
-    # --- last push / repos ---
-    rx = 884
-    p.append(label(t, rx, 62, "LAST PUSH", 10, t["dim"], spacing=2))
-    lp = st.get("last_push") or {"repo": "-", "at": st["generated_at"]}
-    p.append(label(t, rx, 86, lp["repo"], 14, t["text"], spacing=0, bold=True))
-    p.append(label(t, rx, 106, _ago(st["generated_at"], lp["at"]), 11, t["muted"], spacing=0.3))
-    p.append(label(t, W-24, 62, "PUBLIC REPOS", 10, t["dim"], anchor="end", spacing=2))
-    p.append(f'<text x="{W-24}" y="106" text-anchor="end" font-family="{MONO}" font-size="30" font-weight="600" fill="{t["text"]}">{st["public_repos"]}</text>')
-    p.append("</svg>\n")
-    return "\n".join(p)
-
-
-def timeline(t):
-    """Work history as a single rail with three stops."""
-    W, H = 1200, 190
-    Y = 72
-    stops = [
-        (130, "APR – JUN 2023", "intern developer", "Zip Event",
-         "public-space booking platform for Bangkok", "asp.net mvc · mongodb · bootstrap"),
-        (500, "MAR 2024 – MAR 2025", "programmer", "Tech Horizon",
-         "payment gateway (japan) · batch processing", "pci dss · parallel workloads · security reviews"),
-        (850, "MAY 2025 – NOW", "full-stack developer", "real-time chat platform · sms platform",
-         "high-traffic apis · agile sprints · observability", "go · gin · vue (ts) · rabbitmq · clickhouse"),
-    ]
-    p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Experience: intern developer at Zip Event 2023; programmer at Tech Horizon 2024 to 2025 on a payment gateway; full-stack developer since 2025 on a real-time chat platform and an SMS platform">
-  <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
-  <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
-  {label(t, 24, 25, "EXPERIENCE", 11, t["dim"], spacing=3)}
-  {label(t, W-24, 25, "2023 → NOW", 11, t["dim"], anchor="end", spacing=3)}
-  <line x1="60" y1="{Y}" x2="{W-60}" y2="{Y}" stroke="{t["muted"]}" stroke-width="1"/>
-  <path d="M {W-66} {Y-4} L {W-58} {Y} L {W-66} {Y+4}" fill="none" stroke="{t["muted"]}" stroke-width="1"/>''']
-    for i, (x, when, role, org, line3, line4) in enumerate(stops):
-        current = i == len(stops) - 1
-        col = t["accent"] if current else t["text"]
-        p.append(label(t, x, Y - 14, when, 10, t["dim"], spacing=2))
-        p.append(f'<rect x="{x-5}" y="{Y-5}" width="10" height="10" fill="{t["accent"] if current else t["bg"]}" stroke="{col}" stroke-width="1.25"/>')
-        if current:
-            p.append(f'<rect x="{x-5}" y="{Y-5}" width="10" height="10" fill="none" stroke="{t["accent"]}" stroke-width="1">'
-                     f'<animate attributeName="x" values="{x-5};{x-13}" dur="2.4s" repeatCount="indefinite"/>'
-                     f'<animate attributeName="y" values="{Y-5};{Y-13}" dur="2.4s" repeatCount="indefinite"/>'
-                     f'<animate attributeName="width" values="10;26" dur="2.4s" repeatCount="indefinite"/>'
-                     f'<animate attributeName="height" values="10;26" dur="2.4s" repeatCount="indefinite"/>'
-                     f'<animate attributeName="opacity" values="0.8;0" dur="2.4s" repeatCount="indefinite"/></rect>')
-        p.append(label(t, x, Y + 30, role, 14, t["text"], spacing=0, bold=True))
-        p.append(label(t, x, Y + 50, org, 11, t["accent"] if current else t["muted"], spacing=0.3))
-        p.append(label(t, x, Y + 68, line3, 11, t["muted"], spacing=0.3))
-        p.append(label(t, x, Y + 86, line4, 10, t["dim"], spacing=0.3))
-    p.append("</svg>\n")
-    return "\n".join(p)
-
-
-STATS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "stats.json")
+# ---------------------------------------------------------------- build
+STATS_PATH = os.path.join(HERE, "..", "data", "stats.json")
 STATS = json.load(open(STATS_PATH)) if os.path.exists(STATS_PATH) else None
 
 for name, t in THEMES.items():
-    with open(f"{OUT}/hero.svg", "w") as f:
-        f.write(hero(t))
-    with open(f"{OUT}/system.svg", "w") as f:
-        f.write(system(t))
-    with open(f"{OUT}/stack.svg", "w") as f:
-        f.write(stack(t))
-    with open(f"{OUT}/timeline.svg", "w") as f:
-        f.write(timeline(t))
+    files = {"hero": hero(t), "system": system(t), "timeline": timeline(t), "stack": stack(t)}
     if STATS:
-        with open(f"{OUT}/pulse.svg", "w") as f:
-            f.write(pulse(t, STATS))
+        files["pulse"] = pulse(t, STATS)
+    for key, svg in files.items():
+        with open(f"{OUT}/{key}-{name}.svg", "w") as f:
+            f.write(svg)
 print("written:", sorted(os.listdir(OUT)))
