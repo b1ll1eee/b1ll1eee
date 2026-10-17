@@ -309,7 +309,7 @@ def flagship(t):
     p = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" '
          f'aria-label="Vindice: self-hosted observability for logs, traces and metrics. One Go binary with Kafka and ClickHouse, about 1.5 GB of RAM at idle.">',
          f'<rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" rx="12" fill="{t["card"]}" stroke="{t["accent"]}" stroke-opacity="0.55"/>',
-         cap(t, 28, 44, "FLAGSHIP PROJECT · SELF-HOSTED", fill="accent"),
+         cap(t, 28, 44, "FLAGSHIP PROJECT · OPEN SOURCE · MIT", fill="accent"),
          f'<path d="M {W-38} 44 L {W-28} 34 M {W-36} 34 L {W-28} 34 L {W-28} 42" fill="none" stroke="{t["dim"]}" '
          f'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
          text(t, 28, 84, "Vindice", 30, "text", weight=600, spacing=-0.4),
