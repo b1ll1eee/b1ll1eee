@@ -1,39 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="Krirk Klomkliang — full-stack developer">
-  <defs>
-    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
-      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#1b222c" stroke-width="1"/>
-    </pattern>
-    <linearGradient id="fadeR" x1="0" x2="1">
-      <stop offset="0" stop-color="#0d1117" stop-opacity="0"/>
-      <stop offset="1" stop-color="#0d1117" stop-opacity="1"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="300" rx="14" fill="#0d1117"/>
-  <rect width="1200" height="300" rx="14" fill="url(#grid)"/>
-  <rect x="0" y="0" width="1200" height="300" rx="14" fill="none" stroke="#30363d"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="240" viewBox="0 0 1200 240" role="img" aria-label="Krirk Klomkliang, full-stack developer, Bangkok">
+  <rect width="1200" height="240" fill="#0a0c10"/>
+  <!-- frame -->
+  <rect x="0.5" y="0.5" width="1199" height="239" fill="none" stroke="#1f2630"/>
+  <line x1="0" y1="40" x2="1200" y2="40" stroke="#1f2630"/>
+  <line x1="0" y1="200" x2="1200" y2="200" stroke="#1f2630"/>
+  <line x1="820" y1="40" x2="820" y2="200" stroke="#1f2630"/>
 
-  <!-- left: identity -->
-  <text x="60" y="78" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#2dd4bf">~/b1ll1eee</text>
-  <text x="58" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="46" font-weight="700" fill="#e6edf3" letter-spacing="-0.5">Krirk Klomkliang</text>
-  <text x="60" y="172" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" fill="#8b949e">Full-stack developer. Go on the server, Vue &amp; Next.js on the screen.</text>
+  <!-- top rail -->
+  <text x="24" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#4b535e" text-anchor="start" letter-spacing="3">B1LL1EEE</text>
+  <text x="300" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#4b535e" text-anchor="start" letter-spacing="3">FULL-STACK DEVELOPER</text>
+  <text x="1176" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#4b535e" text-anchor="end" letter-spacing="2">BANGKOK · 13.75N 100.50E</text>
 
-  <rect x="60" y="204" width="142" height="26" rx="13" fill="none" stroke="#30363d"/><text x="131.0" y="221" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" fill="#8b949e">real-time chat</text>
-  <rect x="212" y="204" width="94" height="26" rx="13" fill="none" stroke="#30363d"/><text x="259.0" y="221" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" fill="#8b949e">payments</text>
-  <rect x="316" y="204" width="134" height="26" rx="13" fill="none" stroke="#30363d"/><text x="383.0" y="221" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" fill="#8b949e">sms pipelines</text>
-  <rect x="460" y="204" width="110" height="26" rx="13" fill="none" stroke="#30363d"/><text x="515.0" y="221" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" fill="#8b949e">local LLMs</text>
-  <text x="60" y="262" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#6e7681">Bangkok, Thailand · open to backend / full-stack work</text>
+  <!-- name -->
+  <text x="24" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="40" font-weight="600" fill="#e6edf3" letter-spacing="-0.5">Krirk Klomkliang</text>
+  <text x="26" y="150" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" fill="#7d8590">Go on the server. Vue and Next.js on the screen. Boring in production, on purpose.</text>
 
-  <!-- right: terminal -->
-  <rect x="700" y="44" width="450" height="212" rx="10" fill="#161b22" stroke="#30363d"/>
-  <circle cx="722" cy="62" r="5" fill="#ff7b72"/>
-  <circle cx="740" cy="62" r="5" fill="#f5b84b"/>
-  <circle cx="758" cy="62" r="5" fill="#3fb950"/>
-  <text x="925" y="66" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#6e7681">zsh — scribe-api</text>
-  <line x1="700" y1="78" x2="1150" y2="78" stroke="#30363d"/>
-  <g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.15s" begin="0.6s" fill="freeze"/><text x="730" y="92" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#2dd4bf">$</text><text x="748" y="92" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#e6edf3">whoami</text></g>
-<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.15s" begin="1.1s" fill="freeze"/><text x="748" y="116" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#8b949e">bill · bangkok, th</text></g>
-<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.15s" begin="1.8s" fill="freeze"/><text x="730" y="146" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#2dd4bf">$</text><text x="748" y="146" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#e6edf3">go run ./cmd/api</text></g>
-<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.15s" begin="2.3s" fill="freeze"/><text x="748" y="170" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#8b949e">api listening on :8090</text></g>
-<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.15s" begin="3.2s" fill="freeze"/><text x="730" y="200" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#2dd4bf">$</text><text x="748" y="200" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#e6edf3">tail -f api.log | grep ERROR</text></g>
-<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.15s" begin="3.9s" fill="freeze"/><text x="748" y="224" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" fill="#6e7681">— nothing yet. good.</text><rect x="938" y="211" width="9" height="17" fill="#2dd4bf"><animate attributeName="opacity" values="1;1;0;0" dur="1.1s" begin="4s" repeatCount="indefinite"/></rect></g>
+  <!-- status panel -->
+  <text x="844" y="76" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="start" letter-spacing="3">STATUS</text>
+  <circle cx="850" cy="99" r="4" fill="#22d3ee">
+    <animate attributeName="opacity" values="1;0.25;1" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="850" cy="99" r="4" fill="none" stroke="#22d3ee" stroke-width="1">
+    <animate attributeName="r" values="4;11" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.7;0" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <text x="866" y="103" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="start" letter-spacing="0">building real-time chat + sms platform</text>
+  <text x="844" y="134" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="start" letter-spacing="3">STACK</text>
+  <text x="844" y="156" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="start" letter-spacing="0">go · typescript · python</text>
+  <text x="1050" y="134" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="start" letter-spacing="3">SINCE</text>
+  <text x="1050" y="156" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="start" letter-spacing="0">2023</text>
+  <text x="1118" y="134" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="start" letter-spacing="3">OPEN TO</text>
+  <text x="1118" y="156" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="start" letter-spacing="0">backend</text>
+
+  <!-- bottom rail with scanner -->
+  <rect x="0" y="200" width="1200" height="39" fill="none"/>
+  <line x1="24" y1="220" x2="1176" y2="220" stroke="#1f2630"/>
+  <rect x="24" y="219" width="90" height="2" fill="#22d3ee" opacity="0.9">
+    <animate attributeName="x" values="24;1086;24" dur="9s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </rect>
+  <text x="24" y="213" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#4b535e" text-anchor="start" letter-spacing="3">SYS</text>
+  <text x="1176" y="213" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#4b535e" text-anchor="end" letter-spacing="2">v2026.10</text>
 </svg>

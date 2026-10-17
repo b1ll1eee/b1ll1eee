@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="260" viewBox="0 0 1200 260" role="img" aria-label="Signal path of a typical system: client to Gin edge to framework-free core to ports, then PostgreSQL, Redis, RabbitMQ, ClickHouse and workers, with telemetry underneath">
+  <rect width="1200" height="260" fill="#0a0c10"/>
+  <rect x="0.5" y="0.5" width="1199" height="259" fill="none" stroke="#1f2630"/>
+  <text x="24" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#4b535e" text-anchor="start" letter-spacing="3">SIGNAL PATH · A TYPICAL SERVICE I BUILD</text>
+  <text x="1176" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#4b535e" text-anchor="end" letter-spacing="3">GO · PORTS &amp; ADAPTERS</text>
+  <line x1="0" y1="40" x2="1200" y2="40" stroke="#1f2630"/>
+
+  <!-- rails -->
+  <path d="M 80 110 L 740 110" stroke="#7d8590" stroke-width="1" fill="none"/>
+<path d="M 740 110 C 840 110, 840 60, 960 60" stroke="#1f2630" stroke-width="1" fill="none"/>
+<path d="M 740 110 C 840 110, 840 110, 960 110" stroke="#1f2630" stroke-width="1" fill="none"/>
+<path d="M 740 110 C 840 110, 840 160, 960 160" stroke="#1f2630" stroke-width="1" fill="none"/>
+<path d="M 740 110 C 840 110, 840 210, 960 210" stroke="#1f2630" stroke-width="1" fill="none"/>
+<path d="M 1088 160 L 1116 160" stroke="#1f2630" stroke-width="1" fill="none"/>
+<rect x="440" y="72" width="160" height="94" fill="none" stroke="#22d3ee" stroke-width="1" stroke-dasharray="3 4" opacity="0.8"/>
+<text x="520" y="64" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#22d3ee" text-anchor="middle" letter-spacing="2">NO FRAMEWORK IMPORTS</text>
+<rect x="75" y="105" width="10" height="10" fill="#0a0c10" stroke="#e6edf3" stroke-width="1.25"/><text x="80" y="136" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="middle" letter-spacing="0.5">client</text><text x="80" y="152" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="middle" letter-spacing="0.5">vue · next.js</text>
+<rect x="295" y="105" width="10" height="10" fill="#0a0c10" stroke="#e6edf3" stroke-width="1.25"/><text x="300" y="136" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="middle" letter-spacing="0.5">edge</text><text x="300" y="152" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="middle" letter-spacing="0.5">gin http · auth</text>
+<rect x="515" y="105" width="10" height="10" fill="#0a0c10" stroke="#22d3ee" stroke-width="1.25"/><text x="520" y="136" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="middle" letter-spacing="0.5">core</text><text x="520" y="152" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="middle" letter-spacing="0.5">domain · services</text>
+<rect x="735" y="105" width="10" height="10" fill="#0a0c10" stroke="#e6edf3" stroke-width="1.25"/><text x="740" y="136" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="middle" letter-spacing="0.5">ports</text><text x="740" y="152" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="middle" letter-spacing="0.5">interfaces only</text>
+<circle cx="960" cy="60" r="4" fill="#0a0c10" stroke="#e6edf3" stroke-width="1.25"/>
+<text x="974" y="64" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="start" letter-spacing="0.5">postgres</text>
+<text x="1042.8" y="64" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="start" letter-spacing="0.5">truth</text>
+<circle cx="960" cy="110" r="4" fill="#0a0c10" stroke="#e6edf3" stroke-width="1.25"/>
+<text x="974" y="114" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="start" letter-spacing="0.5">redis</text>
+<text x="1020.0" y="114" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="start" letter-spacing="0.5">cache</text>
+<circle cx="960" cy="160" r="4" fill="#0a0c10" stroke="#e6edf3" stroke-width="1.25"/>
+<text x="974" y="164" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="start" letter-spacing="0.5">rabbitmq</text>
+<text x="1042.8" y="164" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="start" letter-spacing="0.5">events</text>
+<circle cx="960" cy="210" r="4" fill="#0a0c10" stroke="#e6edf3" stroke-width="1.25"/>
+<text x="974" y="214" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="start" letter-spacing="0.5">clickhouse</text>
+<text x="1058.0" y="214" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="start" letter-spacing="0.5">analytics</text>
+<circle cx="1120" cy="160" r="4" fill="#0a0c10" stroke="#e6edf3" stroke-width="1.25"/>
+<text x="1120" y="186" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="12" fill="#e6edf3" text-anchor="middle" letter-spacing="0.5">workers</text>
+<circle r="3" fill="#22d3ee">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M 80 110 L 740 110 C 840 110, 840 60, 960 60" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+    <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.05;0.9;0.97;1" dur="4s" repeatCount="indefinite"/>
+  </circle>
+<line x1="0" y1="220" x2="1200" y2="220" stroke="#1f2630"/>
+<text x="24" y="244" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" fill="#4b535e" text-anchor="start" letter-spacing="3">TELEMETRY</text>
+<text x="120" y="244" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#7d8590" text-anchor="start" letter-spacing="0.5">loki · tempo · mimir · grafana · prometheus</text>
+<text x="1176" y="244" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#7d8590" text-anchor="end" letter-spacing="0.5">docker · github actions</text>
+</svg>

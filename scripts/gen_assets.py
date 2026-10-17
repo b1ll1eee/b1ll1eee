@@ -1,179 +1,137 @@
-"""Generate hero + architecture SVGs (dark/light) for the profile README.
+"""Generate the profile SVGs (dark + light): hero.svg and system.svg.
 
 Usage: python3 scripts/gen_assets.py assets
+Minimal, schematic look: one accent colour, 1px lines, monospace labels.
 """
-import sys, os
+import os
+import sys
 
-OUT = sys.argv[1]
+OUT = sys.argv[1] if len(sys.argv) > 1 else "assets"
 os.makedirs(OUT, exist_ok=True)
 
 THEMES = {
-    "dark": dict(bg="#0d1117", card="#161b22", border="#30363d", text="#e6edf3",
-                 muted="#8b949e", accent="#2dd4bf", accent2="#f5b84b", grid="#1b222c",
-                 dim="#6e7681", green="#3fb950", red="#ff7b72"),
-    "light": dict(bg="#ffffff", card="#f6f8fa", border="#d0d7de", text="#1f2328",
-                  muted="#656d76", accent="#0e7c6b", accent2="#b7791f", grid="#eef1f4",
-                  dim="#8c959f", green="#1a7f37", red="#cf222e"),
+    "dark": dict(bg="#0a0c10", line="#1f2630", text="#e6edf3", muted="#7d8590",
+                 dim="#4b535e", accent="#22d3ee"),
+    "light": dict(bg="#ffffff", line="#e3e7ec", text="#1f2328", muted="#656d76",
+                  dim="#9aa3ad", accent="#0891b2"),
 }
-SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
 MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
+SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
 
 
-def fade(begin):
-    return (f'<animate attributeName="opacity" from="0" to="1" dur="0.15s" '
-            f'begin="{begin}s" fill="freeze"/>')
-
-
-def pills(t, labels, x=60, y=204, size=13):
-    out, cw = [], size * 0.62  # approx monospace advance
-    for lab in labels:
-        w = int(len(lab) * cw) + 30
-        out.append(f'<rect x="{x}" y="{y}" width="{w}" height="26" rx="13" fill="none" stroke="{t["border"]}"/>'
-                   f'<text x="{x + w/2}" y="{y + 17}" text-anchor="middle" font-family="{MONO}" font-size="{size}" fill="{t["muted"]}">{lab}</text>')
-        x += w + 10
-    return "\n  ".join(out)
+def label(t, x, y, s, size=12, fill=None, anchor="start", spacing=1.5, bold=False):
+    fill = fill or t["muted"]
+    w = ' font-weight="600"' if bold else ""
+    return (f'<text x="{x}" y="{y}" font-family="{MONO}" font-size="{size}" fill="{fill}" '
+            f'text-anchor="{anchor}" letter-spacing="{spacing}"{w}>{s}</text>')
 
 
 def hero(t):
-    W, H = 1200, 300
-    lines = [  # (y, prompt, cmd, out, begin)
-        (92,  "$", "whoami", "bill · bangkok, th", 0.6),
-        (146, "$", "go run ./cmd/api", "api listening on :8090", 1.8),
-        (200, "$", "tail -f api.log | grep ERROR", "", 3.2),
-    ]
-    term = []
-    for y, p, cmd, out, b in lines:
-        term.append(f'<g opacity="0">{fade(b)}'
-                    f'<text x="730" y="{y}" font-family="{MONO}" font-size="15" fill="{t["accent"]}">{p}</text>'
-                    f'<text x="748" y="{y}" font-family="{MONO}" font-size="15" fill="{t["text"]}">{cmd}</text></g>')
-        if out:
-            term.append(f'<g opacity="0">{fade(b + 0.5)}'
-                        f'<text x="748" y="{y + 24}" font-family="{MONO}" font-size="15" fill="{t["muted"]}">{out}</text></g>')
-    # final line: comment + blinking cursor
-    term.append(f'<g opacity="0">{fade(3.9)}'
-                f'<text x="748" y="224" font-family="{MONO}" font-size="15" fill="{t["dim"]}">— nothing yet. good.</text>'
-                f'<rect x="938" y="211" width="9" height="17" fill="{t["accent"]}">'
-                f'<animate attributeName="opacity" values="1;1;0;0" dur="1.1s" begin="4s" repeatCount="indefinite"/></rect></g>')
-    term_svg = "\n".join(term)
+    W, H = 1200, 240
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Krirk Klomkliang, full-stack developer, Bangkok">
+  <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
+  <!-- frame -->
+  <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
+  <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
+  <line x1="0" y1="{H-40}" x2="{W}" y2="{H-40}" stroke="{t["line"]}"/>
+  <line x1="820" y1="40" x2="820" y2="{H-40}" stroke="{t["line"]}"/>
 
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Krirk Klomkliang — full-stack developer">
-  <defs>
-    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
-      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="{t["grid"]}" stroke-width="1"/>
-    </pattern>
-    <linearGradient id="fadeR" x1="0" x2="1">
-      <stop offset="0" stop-color="{t["bg"]}" stop-opacity="0"/>
-      <stop offset="1" stop-color="{t["bg"]}" stop-opacity="1"/>
-    </linearGradient>
-  </defs>
-  <rect width="{W}" height="{H}" rx="14" fill="{t["bg"]}"/>
-  <rect width="{W}" height="{H}" rx="14" fill="url(#grid)"/>
-  <rect x="0" y="0" width="{W}" height="{H}" rx="14" fill="none" stroke="{t["border"]}"/>
+  <!-- top rail -->
+  {label(t, 24, 25, "B1LL1EEE", 11, t["dim"], spacing=3)}
+  {label(t, 300, 25, "FULL-STACK DEVELOPER", 11, t["dim"], spacing=3)}
+  {label(t, W-24, 25, "BANGKOK · 13.75N 100.50E", 11, t["dim"], anchor="end", spacing=2)}
 
-  <!-- left: identity -->
-  <text x="60" y="78" font-family="{MONO}" font-size="14" fill="{t["accent"]}">~/b1ll1eee</text>
-  <text x="58" y="136" font-family="{SANS}" font-size="46" font-weight="700" fill="{t["text"]}" letter-spacing="-0.5">Krirk Klomkliang</text>
-  <text x="60" y="172" font-family="{SANS}" font-size="20" fill="{t["muted"]}">Full-stack developer. Go on the server, Vue &amp; Next.js on the screen.</text>
+  <!-- name -->
+  <text x="24" y="118" font-family="{SANS}" font-size="40" font-weight="600" fill="{t["text"]}" letter-spacing="-0.5">Krirk Klomkliang</text>
+  <text x="26" y="150" font-family="{MONO}" font-size="14" fill="{t["muted"]}">Go on the server. Vue and Next.js on the screen. Boring in production, on purpose.</text>
 
-  {pills(t, ["real-time chat", "payments", "sms pipelines", "local LLMs"])}
-  <text x="60" y="262" font-family="{SANS}" font-size="14" fill="{t["dim"]}">Bangkok, Thailand · open to backend / full-stack work</text>
+  <!-- status panel -->
+  {label(t, 844, 76, "STATUS", 10, t["dim"], spacing=3)}
+  <circle cx="850" cy="99" r="4" fill="{t["accent"]}">
+    <animate attributeName="opacity" values="1;0.25;1" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="850" cy="99" r="4" fill="none" stroke="{t["accent"]}" stroke-width="1">
+    <animate attributeName="r" values="4;11" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.7;0" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  {label(t, 866, 103, "building real-time chat + sms platform", 12, t["text"], spacing=0)}
+  {label(t, 844, 134, "STACK", 10, t["dim"], spacing=3)}
+  {label(t, 844, 156, "go · typescript · python", 12, t["text"], spacing=0)}
+  {label(t, 1050, 134, "SINCE", 10, t["dim"], spacing=3)}
+  {label(t, 1050, 156, "2023", 12, t["text"], spacing=0)}
+  {label(t, 1118, 134, "OPEN TO", 10, t["dim"], spacing=3)}
+  {label(t, 1118, 156, "backend", 12, t["text"], spacing=0)}
 
-  <!-- right: terminal -->
-  <rect x="700" y="44" width="450" height="212" rx="10" fill="{t["card"]}" stroke="{t["border"]}"/>
-  <circle cx="722" cy="62" r="5" fill="{t["red"]}"/>
-  <circle cx="740" cy="62" r="5" fill="{t["accent2"]}"/>
-  <circle cx="758" cy="62" r="5" fill="{t["green"]}"/>
-  <text x="925" y="66" text-anchor="middle" font-family="{MONO}" font-size="12" fill="{t["dim"]}">zsh — scribe-api</text>
-  <line x1="700" y1="78" x2="1150" y2="78" stroke="{t["border"]}"/>
-  {term_svg}
+  <!-- bottom rail with scanner -->
+  <rect x="0" y="{H-40}" width="{W}" height="39" fill="none"/>
+  <line x1="24" y1="{H-20}" x2="{W-24}" y2="{H-20}" stroke="{t["line"]}"/>
+  <rect x="24" y="{H-21}" width="90" height="2" fill="{t["accent"]}" opacity="0.9">
+    <animate attributeName="x" values="24;{W-24-90};24" dur="9s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </rect>
+  {label(t, 24, H-27, "SYS", 9, t["dim"], spacing=3)}
+  {label(t, W-24, H-27, "v2026.10", 9, t["dim"], anchor="end", spacing=2)}
 </svg>
 '''
 
 
-def box(t, x, y, w, h, title, sub=None, accent=False, dashed=False):
-    stroke = t["accent"] if accent else t["border"]
-    dash = ' stroke-dasharray="6 5"' if dashed else ""
-    s = f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="{t["card"]}" stroke="{stroke}"{dash}/>'
-    cy = y + h / 2
+def node(t, x, y, name, sub=None, accent=False):
+    """Small square node with labels underneath."""
+    col = t["accent"] if accent else t["text"]
+    s = f'<rect x="{x-5}" y="{y-5}" width="10" height="10" fill="{t["bg"]}" stroke="{col}" stroke-width="1.25"/>'
+    s += label(t, x, y + 26, name, 12, t["text"], anchor="middle", spacing=0.5)
     if sub:
-        s += f'<text x="{x + w/2}" y="{cy - 4}" text-anchor="middle" font-family="{SANS}" font-size="15" font-weight="600" fill="{t["text"]}">{title}</text>'
-        s += f'<text x="{x + w/2}" y="{cy + 15}" text-anchor="middle" font-family="{MONO}" font-size="12" fill="{t["muted"]}">{sub}</text>'
-    else:
-        s += f'<text x="{x + w/2}" y="{cy + 5}" text-anchor="middle" font-family="{SANS}" font-size="15" font-weight="600" fill="{t["text"]}">{title}</text>'
+        s += label(t, x, y + 42, sub, 10, t["dim"], anchor="middle", spacing=0.5)
     return s
 
 
-def arrow(t, x1, y1, x2, y2, label=None, dashed=False, below=False):
-    dash = ' stroke-dasharray="5 5"' if dashed else ""
-    s = f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{t["muted"]}" stroke-width="1.5" marker-end="url(#arr)"{dash}/>'
-    if label:
-        mx, my = (x1 + x2) / 2, (y1 + y2) / 2 + (18 if below else -7)
-        s += f'<text x="{mx}" y="{my}" text-anchor="middle" font-family="{MONO}" font-size="11" fill="{t["dim"]}">{label}</text>'
-    return s
+def system(t):
+    W, H = 1200, 260
+    Y = 110          # main rail
+    xs = [80, 300, 520, 740]   # client, edge, core, ports
+    stores = [(960, 60, "postgres", "truth"), (960, 110, "redis", "cache"),
+              (960, 160, "rabbitmq", "events"), (960, 210, "clickhouse", "analytics")]
+    main_path = f"M {xs[0]} {Y} L {xs[3]} {Y}"
+    p = [f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Signal path of a typical system: client to Gin edge to framework-free core to ports, then PostgreSQL, Redis, RabbitMQ, ClickHouse and workers, with telemetry underneath">
+  <rect width="{W}" height="{H}" fill="{t["bg"]}"/>
+  <rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" fill="none" stroke="{t["line"]}"/>
+  {label(t, 24, 25, "SIGNAL PATH · A TYPICAL SERVICE I BUILD", 11, t["dim"], spacing=3)}
+  {label(t, W-24, 25, "GO · PORTS &amp; ADAPTERS", 11, t["dim"], anchor="end", spacing=3)}
+  <line x1="0" y1="40" x2="{W}" y2="40" stroke="{t["line"]}"/>
 
+  <!-- rails -->
+  <path d="{main_path}" stroke="{t["muted"]}" stroke-width="1" fill="none"/>''']
+    # fan-out from ports to stores
+    for sx, sy, _, _ in stores:
+        p.append(f'<path d="M {xs[3]} {Y} C {xs[3]+100} {Y}, {sx-120} {sy}, {sx} {sy}" stroke="{t["line"]}" stroke-width="1" fill="none"/>')
+    # stores -> workers (from rabbitmq)
+    p.append(f'<path d="M 1088 160 L 1116 160" stroke="{t["line"]}" stroke-width="1" fill="none"/>')
+    # core bracket (framework-free zone)
+    p.append(f'<rect x="{xs[2]-80}" y="{Y-38}" width="160" height="94" fill="none" stroke="{t["accent"]}" stroke-width="1" stroke-dasharray="3 4" opacity="0.8"/>')
+    p.append(label(t, xs[2], Y-46, "NO FRAMEWORK IMPORTS", 9, t["accent"], anchor="middle", spacing=2))
 
-def arch(t):
-    W, H = 1200, 430
-    p = []
-    p.append(f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Typical system: clients, Go service with hexagonal core, data stores, workers, observability">
-  <defs>
-    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="{t["muted"]}"/>
-    </marker>
-  </defs>
-  <rect width="{W}" height="{H}" rx="14" fill="{t["bg"]}" stroke="{t["border"]}"/>''')
+    # nodes
+    p.append(node(t, xs[0], Y, "client", "vue · next.js"))
+    p.append(node(t, xs[1], Y, "edge", "gin http · auth"))
+    p.append(node(t, xs[2], Y, "core", "domain · services", accent=True))
+    p.append(node(t, xs[3], Y, "ports", "interfaces only"))
+    for sx, sy, n, sub in stores:
+        p.append(f'<circle cx="{sx}" cy="{sy}" r="4" fill="{t["bg"]}" stroke="{t["text"]}" stroke-width="1.25"/>')
+        p.append(label(t, sx+14, sy+4, n, 12, t["text"], spacing=0.5))
+        p.append(label(t, sx+14+len(n)*7.6+8, sy+4, sub, 10, t["dim"], spacing=0.5))
+    p.append(f'<circle cx="1120" cy="160" r="4" fill="{t["bg"]}" stroke="{t["text"]}" stroke-width="1.25"/>')
+    p.append(label(t, 1120, 186, "workers", 12, t["text"], anchor="middle", spacing=0.5))
 
-    # column headers
-    for x, label in ((40, "clients"), (330, "service"), (760, "state"), (1000, "async")):
-        p.append(f'<text x="{x}" y="42" font-family="{MONO}" font-size="12" fill="{t["dim"]}" letter-spacing="1">{label.upper()}</text>')
+    # moving packet along main rail, then onto one store path
+    p.append(f'''<circle r="3" fill="{t["accent"]}">
+    <animateMotion dur="4s" repeatCount="indefinite" path="{main_path} C {xs[3]+100} {Y}, 840 60, 960 60" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+    <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.05;0.9;0.97;1" dur="4s" repeatCount="indefinite"/>
+  </circle>''')
 
-    # clients
-    p.append(box(t, 40, 70, 200, 60, "Vue 3 + TypeScript", "nuxt · tailwind"))
-    p.append(box(t, 40, 150, 200, 60, "Next.js", "react · tailwind"))
-    p.append(box(t, 40, 230, 200, 60, "Cron / schedulers", "batch jobs"))
-
-    # service: outer adapters + inner core
-    p.append(f'<rect x="330" y="70" width="380" height="250" rx="10" fill="none" stroke="{t["accent"]}" stroke-dasharray="6 5"/>')
-    p.append(f'<text x="520" y="92" text-anchor="middle" font-family="{SANS}" font-size="14" font-weight="600" fill="{t["accent"]}">Go service · ports &amp; adapters</text>')
-    p.append(box(t, 346, 106, 110, 44, "HTTP · Gin"))
-    p.append(box(t, 346, 160, 110, 44, "Auth adapter", None))
-    p.append(f'<text x="401" y="194" text-anchor="middle" font-family="{MONO}" font-size="10" fill="{t["muted"]}"></text>')
-    p.append(box(t, 346, 214, 110, 44, "Postgres repo"))
-    p.append(box(t, 346, 268, 110, 44, "Redis · AMQP"))
-    # core
-    p.append(f'<rect x="478" y="106" width="216" height="206" rx="8" fill="{t["card"]}" stroke="{t["text"]}" stroke-width="1.5"/>')
-    p.append(f'<text x="586" y="150" text-anchor="middle" font-family="{SANS}" font-size="16" font-weight="700" fill="{t["text"]}">domain + services</text>')
-    for i, line in enumerate(["no gin, no gorm imports", "state machines, invariants", "unit-tested in isolation", "swap any adapter in one file"]):
-        p.append(f'<text x="586" y="{184 + i*26}" text-anchor="middle" font-family="{MONO}" font-size="12" fill="{t["muted"]}">{line}</text>')
-    # inner arrows adapters -> core
-    for y in (128, 182, 236, 290):
-        p.append(arrow(t, 456, y, 476, y))
-
-    # client -> service arrows
-    p.append(arrow(t, 240, 100, 330, 118, "REST / JSON"))
-    p.append(arrow(t, 240, 180, 330, 160))
-    p.append(arrow(t, 240, 260, 330, 280, "ticks", dashed=True))
-
-    # state column
-    p.append(box(t, 760, 70, 200, 56, "PostgreSQL", "source of truth"))
-    p.append(box(t, 760, 142, 200, 56, "Redis", "cache · sessions"))
-    p.append(box(t, 760, 214, 200, 56, "RabbitMQ", "events out"))
-    p.append(box(t, 760, 286, 200, 56, "ClickHouse", "analytics, append-only"))
-    p.append(arrow(t, 710, 236, 760, 98))
-    p.append(arrow(t, 710, 250, 760, 170))
-    p.append(arrow(t, 710, 290, 760, 242))
-    p.append(arrow(t, 710, 300, 760, 314, "fire &amp; forget", dashed=True, below=True))
-
-    # async column
-    p.append(box(t, 1000, 142, 160, 56, "Workers", "go consumers"))
-    p.append(box(t, 1000, 214, 160, 56, "Payments · SMS", "3rd-party APIs"))
-    p.append(arrow(t, 960, 242, 1000, 170))
-    p.append(arrow(t, 1080, 198, 1080, 214))
-
-    # observability bar
-    p.append(f'<rect x="40" y="350" width="1120" height="50" rx="8" fill="{t["card"]}" stroke="{t["border"]}"/>')
-    p.append(f'<text x="60" y="381" font-family="{SANS}" font-size="14" font-weight="600" fill="{t["text"]}">Everything ships in Docker and is watched</text>')
-    p.append(f'<text x="1140" y="381" text-anchor="end" font-family="{MONO}" font-size="13" fill="{t["muted"]}">Loki · Grafana · Tempo · Mimir · Prometheus · GitHub Actions</text>')
+    # telemetry rail at bottom
+    p.append(f'<line x1="0" y1="{H-40}" x2="{W}" y2="{H-40}" stroke="{t["line"]}"/>')
+    p.append(label(t, 24, H-16, "TELEMETRY", 10, t["dim"], spacing=3))
+    p.append(label(t, 120, H-16, "loki · tempo · mimir · grafana · prometheus", 11, t["muted"], spacing=0.5))
+    p.append(label(t, W-24, H-16, "docker · github actions", 11, t["muted"], anchor="end", spacing=0.5))
     p.append("</svg>\n")
     return "\n".join(p)
 
@@ -181,6 +139,6 @@ def arch(t):
 for name, t in THEMES.items():
     with open(f"{OUT}/hero-{name}.svg", "w") as f:
         f.write(hero(t))
-    with open(f"{OUT}/arch-{name}.svg", "w") as f:
-        f.write(arch(t))
+    with open(f"{OUT}/system-{name}.svg", "w") as f:
+        f.write(system(t))
 print("written:", sorted(os.listdir(OUT)))
