@@ -303,12 +303,58 @@ def project(t, kicker, title, tagline, points, stack_line):
     return close(out)
 
 
+# ---------------------------------------------------------------- flagship
+def flagship(t):
+    H = 280
+    p = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" '
+         f'aria-label="Vindice: self-hosted observability for logs, traces and metrics. One Go binary with Kafka and ClickHouse, about 1.5 GB of RAM at idle.">',
+         f'<rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" rx="12" fill="{t["card"]}" stroke="{t["accent"]}" stroke-opacity="0.55"/>',
+         cap(t, 28, 44, "FLAGSHIP PROJECT · SELF-HOSTED", fill="accent"),
+         f'<path d="M {W-38} 44 L {W-28} 34 M {W-36} 34 L {W-28} 34 L {W-28} 42" fill="none" stroke="{t["dim"]}" '
+         f'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+         text(t, 28, 84, "Vindice", 30, "text", weight=600, spacing=-0.4),
+         text(t, 28, 110, "Observability for logs, traces and metrics that runs on one small server.", 15, "muted")]
+    points = ["Full-text search over every log, with the logs shown inside each trace",
+              "Tail sampling keeps every failing or slow trace; request rates stay exact",
+              "Alerts to Telegram; takes OTLP, Prometheus remote write and a Go SDK",
+              "Hexagonal Go core; runs as one binary or split into four services"]
+    for i, s in enumerate(points):
+        y = 146 + i * 23
+        p.append(f'<circle cx="32" cy="{y-4}" r="2.5" fill="{t["accent"]}"/>')
+        p.append(text(t, 44, y, s, 13, "text"))
+    p.append(f'<line x1="28" y1="{H-46}" x2="610" y2="{H-46}" stroke="{t["soft"]}"/>')
+    p.append(text(t, 28, H - 20, "Go · gRPC · OpenTelemetry · Kafka · ClickHouse · Vue · Docker", 11, "dim", font=MONO))
+
+    # right: numbers
+    p.append(f'<line x1="640" y1="28" x2="640" y2="{H-28}" stroke="{t["line"]}"/>')
+    for x, k, v in [(668, "CONTAINERS", "3"), (846, "RAM AT IDLE", "~1.5 GB"), (1024, "TEST CASES", "71")]:
+        p.append(cap(t, x, 76, k))
+        p.append(text(t, x, 112, v, 28, "text", weight=600))
+    p.append(f'<line x1="668" y1="138" x2="{W-28}" y2="138" stroke="{t["soft"]}"/>')
+
+    # right: data path
+    Y = 190
+    nodes = [(690, "Sources", "OTLP · Prom"), (800, "Ingest", "auth · checks"),
+             (910, "Kafka", "buffer"), (1020, "Writer", "sample · batch"), (1130, "ClickHouse", "query · alerts")]
+    rail = f"M {nodes[0][0]} {Y} L {nodes[-1][0]} {Y}"
+    p.append(f'<path d="{rail}" stroke="{t["line"]}" stroke-width="1.25"/>')
+    for x, n, sub in nodes:
+        col = t["accent"] if n == "Kafka" else t["text"]
+        p.append(f'<rect x="{x-6}" y="{Y-6}" width="12" height="12" rx="3" fill="{t["card"]}" stroke="{col}" stroke-width="1.5"/>')
+        p.append(text(t, x, Y + 28, n, 13, "text", "middle", 600))
+        p.append(text(t, x, Y + 45, sub, 10, "dim", "middle", font=MONO))
+    p.append(f'<circle r="3.5" fill="{t["accent"]}">'
+             f'<animateMotion dur="3.6s" repeatCount="indefinite" path="{rail}"/>'
+             f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.9;1" dur="3.6s" repeatCount="indefinite"/>'
+             f'</circle>')
+    return close(p)
+
 # ---------------------------------------------------------------- build
 STATS_PATH = os.path.join(HERE, "..", "data", "stats.json")
 STATS = json.load(open(STATS_PATH)) if os.path.exists(STATS_PATH) else None
 
 for name, t in THEMES.items():
-    files = {"hero": hero(t), "system": system(t), "timeline": timeline(t), "stack": stack(t)}
+    files = {"flagship": flagship(t), "hero": hero(t), "system": system(t), "timeline": timeline(t), "stack": stack(t)}
     if STATS:
         files["pulse"] = pulse(t, STATS)
     for slug, *rest in PROJECTS:

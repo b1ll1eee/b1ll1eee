@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-label="Vindice: self-hosted observability for logs, traces and metrics. One Go binary with Kafka and ClickHouse, about 1.5 GB of RAM at idle.">
+<rect x="0.5" y="0.5" width="1199" height="279" rx="12" fill="#ffffff" stroke="#0969da" stroke-opacity="0.55"/>
+<text x="28" y="44" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="500" fill="#0969da" text-anchor="start" letter-spacing="1.6">FLAGSHIP PROJECT · SELF-HOSTED</text>
+<path d="M 1162 44 L 1172 34 M 1164 34 L 1172 34 L 1172 42" fill="none" stroke="#818b98" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="28" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="30" font-weight="600" fill="#1f2328" text-anchor="start" letter-spacing="-0.4">Vindice</text>
+<text x="28" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#59636e" text-anchor="start" letter-spacing="0">Observability for logs, traces and metrics that runs on one small server.</text>
+<circle cx="32" cy="142" r="2.5" fill="#0969da"/>
+<text x="44" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f2328" text-anchor="start" letter-spacing="0">Full-text search over every log, with the logs shown inside each trace</text>
+<circle cx="32" cy="165" r="2.5" fill="#0969da"/>
+<text x="44" y="169" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f2328" text-anchor="start" letter-spacing="0">Tail sampling keeps every failing or slow trace; request rates stay exact</text>
+<circle cx="32" cy="188" r="2.5" fill="#0969da"/>
+<text x="44" y="192" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f2328" text-anchor="start" letter-spacing="0">Alerts to Telegram; takes OTLP, Prometheus remote write and a Go SDK</text>
+<circle cx="32" cy="211" r="2.5" fill="#0969da"/>
+<text x="44" y="215" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f2328" text-anchor="start" letter-spacing="0">Hexagonal Go core; runs as one binary or split into four services</text>
+<line x1="28" y1="234" x2="610" y2="234" stroke="#eff2f5"/>
+<text x="28" y="260" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" letter-spacing="0">Go · gRPC · OpenTelemetry · Kafka · ClickHouse · Vue · Docker</text>
+<line x1="640" y1="28" x2="640" y2="252" stroke="#d1d9e0"/>
+<text x="668" y="76" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="500" fill="#818b98" text-anchor="start" letter-spacing="1.6">CONTAINERS</text>
+<text x="668" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#1f2328" text-anchor="start" letter-spacing="0">3</text>
+<text x="846" y="76" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="500" fill="#818b98" text-anchor="start" letter-spacing="1.6">RAM AT IDLE</text>
+<text x="846" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#1f2328" text-anchor="start" letter-spacing="0">~1.5 GB</text>
+<text x="1024" y="76" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="500" fill="#818b98" text-anchor="start" letter-spacing="1.6">TEST CASES</text>
+<text x="1024" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#1f2328" text-anchor="start" letter-spacing="0">71</text>
+<line x1="668" y1="138" x2="1172" y2="138" stroke="#eff2f5"/>
+<path d="M 690 190 L 1130 190" stroke="#d1d9e0" stroke-width="1.25"/>
+<rect x="684" y="184" width="12" height="12" rx="3" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="690" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2328" text-anchor="middle" letter-spacing="0">Sources</text>
+<text x="690" y="235" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" letter-spacing="0">OTLP · Prom</text>
+<rect x="794" y="184" width="12" height="12" rx="3" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="800" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2328" text-anchor="middle" letter-spacing="0">Ingest</text>
+<text x="800" y="235" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" letter-spacing="0">auth · checks</text>
+<rect x="904" y="184" width="12" height="12" rx="3" fill="#ffffff" stroke="#0969da" stroke-width="1.5"/>
+<text x="910" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2328" text-anchor="middle" letter-spacing="0">Kafka</text>
+<text x="910" y="235" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" letter-spacing="0">buffer</text>
+<rect x="1014" y="184" width="12" height="12" rx="3" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="1020" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2328" text-anchor="middle" letter-spacing="0">Writer</text>
+<text x="1020" y="235" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" letter-spacing="0">sample · batch</text>
+<rect x="1124" y="184" width="12" height="12" rx="3" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="1130" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2328" text-anchor="middle" letter-spacing="0">ClickHouse</text>
+<text x="1130" y="235" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" letter-spacing="0">query · alerts</text>
+<circle r="3.5" fill="#0969da"><animateMotion dur="3.6s" repeatCount="indefinite" path="M 690 190 L 1130 190"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.9;1" dur="3.6s" repeatCount="indefinite"/></circle>
+</svg>

@@ -9,7 +9,12 @@
   Bangkok, Thailand
 </p>
 
-Full-stack developer with a backend focus. I design Go services around a framework-free domain core, build Vue and Next.js frontends on top of them, and run everything in Docker with full observability on the LGTM stack. Previously delivered payment-gateway features under PCI DSS; currently working on a real-time chat platform and an SMS platform.
+Full-stack developer with a backend focus. I design Go services around a framework-free domain core, build Vue and Next.js frontends on top of them, and run everything in Docker with full observability on the LGTM stack. Previously delivered payment-gateway features under PCI DSS; currently working on a real-time chat platform and an SMS platform, and building Vindice, a self-hosted observability stack, on the side.
+
+<a href="https://github.com/b1ll1eee/vindice-obs"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/flagship-dark.svg">
+  <img alt="Vindice: self-hosted observability for logs, traces and metrics. One Go binary with Kafka and ClickHouse, about 1.5 GB of RAM at idle." src="assets/flagship-light.svg" width="100%">
+</picture></a>
 
 <p>
   <a href="https://github.com/b1ll1eee/yummy-hub"><picture>
