@@ -22,14 +22,6 @@ By day I work on a real-time chat platform and an SMS product. At night I'm teac
 
 The core never imports Gin or GORM. Adapters are thin and swappable, so a Postgres repo can become a fake in tests, and a REST handler can become a queue consumer without touching business rules.
 
-## Selected work
-
-| | What it is | The decision worth stealing |
-|---|---|---|
-| [scribe-api](https://github.com/b1ll1eee/scribe-api) | Go API with Firebase and JWT auth, on Railway. | Two stores: PostgreSQL holds the truth, ClickHouse only counts. Analytics never slow down writes. |
-| [flow-do-api](https://github.com/b1ll1eee/flow-do-api) | A task API written as a clean reference for ports and adapters. | The domain package compiles with zero third-party imports. Read it to see the pattern without the noise. |
-| [morty-model](https://github.com/b1ll1eee/morty-model) | Local-first LLM assistant on Ollama. | One base model, many experts via TOML profiles and per-profile RAG. Every prompt change re-runs the eval set, so "better" is a number. |
-
 ## Stack
 
 | | |
