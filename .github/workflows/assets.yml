@@ -1,0 +1,21 @@
+name: Check generated assets
+
+on:
+  pull_request:
+    paths: ["scripts/**", "assets/**"]
+  push:
+    branches: [main]
+    paths: ["scripts/**", "assets/**"]
+
+jobs:
+  assets-up-to-date:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Regenerate SVGs
+        run: python3 scripts/gen_assets.py assets
+      - name: Fail if assets/ differ from the generator output
+        run: git diff --exit-code -- assets
