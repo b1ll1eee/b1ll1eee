@@ -349,12 +349,64 @@ def flagship(t):
              f'</circle>')
     return close(p)
 
+
+# ---------------------------------------------------------------- flagship: messario
+def flagship_messario(t):
+    H = 280
+    teal = "#0F766E" if t["bg"] == "#ffffff" else "#2FB5A5"
+    p = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" '
+         f'aria-label="Messario: self-hosted team chat for organizations. One Go binary with PostgreSQL, a Vue client and a Telegram-style bot API.">',
+         f'<rect x="0.5" y="0.5" width="{W-1}" height="{H-1}" rx="12" fill="{t["card"]}" stroke="{teal}" stroke-opacity="0.6"/>',
+         cap(t, 28, 44, "FLAGSHIP PROJECT · OPEN SOURCE · MIT", fill="accent"),
+         f'<path d="M {W-38} 44 L {W-28} 34 M {W-36} 34 L {W-28} 34 L {W-28} 42" fill="none" stroke="{t["dim"]}" '
+         f'stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+         # mark: two speech bubbles, the front one carrying the M
+         f'<g transform="translate(28 60) scale(0.56)">'
+         f'<rect width="64" height="64" rx="18" fill="{teal}"/>'
+         f'<path d="M12 13h26a6 6 0 0 1 6 6v11a6 6 0 0 1-6 6H24l-7 6v-6h-5a6 6 0 0 1-6-6V19a6 6 0 0 1 6-6z" fill="#fff" opacity="0.55"/>'
+         f'<path d="M26 28h26a6 6 0 0 1 6 6v11a6 6 0 0 1-6 6h-5v6l-7-6H26a6 6 0 0 1-6-6V34a6 6 0 0 1 6-6z" fill="#fff" stroke="{teal}" stroke-width="3" stroke-linejoin="round"/>'
+         f'<path d="M33 44V34l6 6 6-6v10" fill="none" stroke="{teal}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></g>',
+         text(t, 74, 84, "Messario", 30, "text", weight=600, spacing=-0.4),
+         text(t, 28, 110, "Team chat that a company installs on its own server, with bots for its internal systems.", 15, "muted")]
+    points = ["Direct, group and announcement channels with read receipts and file sharing",
+              "Bot API shaped like Telegram's: sendMessage, getUpdates, webhooks",
+              "Gap-free message sequences and idempotent retries, so clients resync cleanly",
+              "Offline ed25519 license keys; one Compose file with PostgreSQL and automatic HTTPS"]
+    for i, s_ in enumerate(points):
+        y = 146 + i * 23
+        p.append(f'<circle cx="32" cy="{y-4}" r="2.5" fill="{teal}"/>')
+        p.append(text(t, 44, y, s_, 13, "text"))
+    p.append(f'<line x1="28" y1="{H-46}" x2="610" y2="{H-46}" stroke="{t["soft"]}"/>')
+    p.append(text(t, 28, H - 20, "Go · PostgreSQL · WebSocket · Vue 3 · Docker · OpenTelemetry", 11, "dim", font=MONO))
+
+    p.append(f'<line x1="640" y1="28" x2="640" y2="{H-28}" stroke="{t["line"]}"/>')
+    for x, k, v in [(668, "CONTAINERS", "3"), (846, "IMAGE SIZE", "48 MB"), (1024, "FREE SEATS", "10")]:
+        p.append(cap(t, x, 76, k))
+        p.append(text(t, x, 112, v, 28, "text", weight=600))
+    p.append(f'<line x1="668" y1="138" x2="{W-28}" y2="138" stroke="{t["soft"]}"/>')
+
+    Y = 190
+    nodes = [(690, "Client", "Vue · WS"), (800, "API", "REST · auth"), (910, "Core", "use cases"),
+             (1020, "PostgreSQL", "seq · files"), (1130, "Bots", "webhook")]
+    rail = f"M {nodes[0][0]} {Y} L {nodes[-1][0]} {Y}"
+    p.append(f'<path d="{rail}" stroke="{t["line"]}" stroke-width="1.25"/>')
+    for x, n, sub in nodes:
+        col = teal if n == "Core" else t["text"]
+        p.append(f'<rect x="{x-6}" y="{Y-6}" width="12" height="12" rx="3" fill="{t["card"]}" stroke="{col}" stroke-width="1.5"/>')
+        p.append(text(t, x, Y + 28, n, 13, "text", "middle", 600))
+        p.append(text(t, x, Y + 45, sub, 10, "dim", "middle", font=MONO))
+    p.append(f'<circle r="3.5" fill="{teal}">'
+             f'<animateMotion dur="3.6s" repeatCount="indefinite" path="{rail}"/>'
+             f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.9;1" dur="3.6s" repeatCount="indefinite"/>'
+             f'</circle>')
+    return close(p)
+
 # ---------------------------------------------------------------- build
 STATS_PATH = os.path.join(HERE, "..", "data", "stats.json")
 STATS = json.load(open(STATS_PATH)) if os.path.exists(STATS_PATH) else None
 
 for name, t in THEMES.items():
-    files = {"flagship": flagship(t), "hero": hero(t), "system": system(t), "timeline": timeline(t), "stack": stack(t)}
+    files = {"flagship": flagship(t), "flagship-messario": flagship_messario(t), "hero": hero(t), "system": system(t), "timeline": timeline(t), "stack": stack(t)}
     if STATS:
         files["pulse"] = pulse(t, STATS)
     for slug, *rest in PROJECTS:

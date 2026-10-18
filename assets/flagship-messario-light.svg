@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-label="Messario: self-hosted team chat for organizations. One Go binary with PostgreSQL, a Vue client and a Telegram-style bot API.">
+<rect x="0.5" y="0.5" width="1199" height="279" rx="12" fill="#ffffff" stroke="#0F766E" stroke-opacity="0.6"/>
+<text x="28" y="44" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="500" fill="#0969da" text-anchor="start" letter-spacing="1.6">FLAGSHIP PROJECT · OPEN SOURCE · MIT</text>
+<path d="M 1162 44 L 1172 34 M 1164 34 L 1172 34 L 1172 42" fill="none" stroke="#818b98" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<g transform="translate(28 60) scale(0.56)"><rect width="64" height="64" rx="18" fill="#0F766E"/><path d="M12 13h26a6 6 0 0 1 6 6v11a6 6 0 0 1-6 6H24l-7 6v-6h-5a6 6 0 0 1-6-6V19a6 6 0 0 1 6-6z" fill="#fff" opacity="0.55"/><path d="M26 28h26a6 6 0 0 1 6 6v11a6 6 0 0 1-6 6h-5v6l-7-6H26a6 6 0 0 1-6-6V34a6 6 0 0 1 6-6z" fill="#fff" stroke="#0F766E" stroke-width="3" stroke-linejoin="round"/><path d="M33 44V34l6 6 6-6v10" fill="none" stroke="#0F766E" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="74" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="30" font-weight="600" fill="#1f2328" text-anchor="start" letter-spacing="-0.4">Messario</text>
+<text x="28" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#59636e" text-anchor="start" letter-spacing="0">Team chat that a company installs on its own server, with bots for its internal systems.</text>
+<circle cx="32" cy="142" r="2.5" fill="#0F766E"/>
+<text x="44" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f2328" text-anchor="start" letter-spacing="0">Direct, group and announcement channels with read receipts and file sharing</text>
+<circle cx="32" cy="165" r="2.5" fill="#0F766E"/>
+<text x="44" y="169" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f2328" text-anchor="start" letter-spacing="0">Bot API shaped like Telegram's: sendMessage, getUpdates, webhooks</text>
+<circle cx="32" cy="188" r="2.5" fill="#0F766E"/>
+<text x="44" y="192" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f2328" text-anchor="start" letter-spacing="0">Gap-free message sequences and idempotent retries, so clients resync cleanly</text>
+<circle cx="32" cy="211" r="2.5" fill="#0F766E"/>
+<text x="44" y="215" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#1f2328" text-anchor="start" letter-spacing="0">Offline ed25519 license keys; one Compose file with PostgreSQL and automatic HTTPS</text>
+<line x1="28" y1="234" x2="610" y2="234" stroke="#eff2f5"/>
+<text x="28" y="260" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" letter-spacing="0">Go · PostgreSQL · WebSocket · Vue 3 · Docker · OpenTelemetry</text>
+<line x1="640" y1="28" x2="640" y2="252" stroke="#d1d9e0"/>
+<text x="668" y="76" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="500" fill="#818b98" text-anchor="start" letter-spacing="1.6">CONTAINERS</text>
+<text x="668" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#1f2328" text-anchor="start" letter-spacing="0">3</text>
+<text x="846" y="76" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="500" fill="#818b98" text-anchor="start" letter-spacing="1.6">IMAGE SIZE</text>
+<text x="846" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#1f2328" text-anchor="start" letter-spacing="0">48 MB</text>
+<text x="1024" y="76" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="500" fill="#818b98" text-anchor="start" letter-spacing="1.6">FREE SEATS</text>
+<text x="1024" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#1f2328" text-anchor="start" letter-spacing="0">10</text>
+<line x1="668" y1="138" x2="1172" y2="138" stroke="#eff2f5"/>
+<path d="M 690 190 L 1130 190" stroke="#d1d9e0" stroke-width="1.25"/>
+<rect x="684" y="184" width="12" height="12" rx="3" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="690" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2328" text-anchor="middle" letter-spacing="0">Client</text>
+<text x="690" y="235" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" letter-spacing="0">Vue · WS</text>
+<rect x="794" y="184" width="12" height="12" rx="3" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="800" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2328" text-anchor="middle" letter-spacing="0">API</text>
+<text x="800" y="235" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" letter-spacing="0">REST · auth</text>
+<rect x="904" y="184" width="12" height="12" rx="3" fill="#ffffff" stroke="#0F766E" stroke-width="1.5"/>
+<text x="910" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2328" text-anchor="middle" letter-spacing="0">Core</text>
+<text x="910" y="235" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" letter-spacing="0">use cases</text>
+<rect x="1014" y="184" width="12" height="12" rx="3" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="1020" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2328" text-anchor="middle" letter-spacing="0">PostgreSQL</text>
+<text x="1020" y="235" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" letter-spacing="0">seq · files</text>
+<rect x="1124" y="184" width="12" height="12" rx="3" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+<text x="1130" y="218" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1f2328" text-anchor="middle" letter-spacing="0">Bots</text>
+<text x="1130" y="235" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" letter-spacing="0">webhook</text>
+<circle r="3.5" fill="#0F766E"><animateMotion dur="3.6s" repeatCount="indefinite" path="M 690 190 L 1130 190"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.9;1" dur="3.6s" repeatCount="indefinite"/></circle>
+</svg>

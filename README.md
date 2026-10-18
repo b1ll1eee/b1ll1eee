@@ -9,12 +9,19 @@
   Bangkok, Thailand
 </p>
 
-Full-stack developer with a backend focus. I design Go services around a framework-free domain core, build Vue and Next.js frontends on top of them, and run everything in Docker with full observability on the LGTM stack. Previously delivered payment-gateway features under PCI DSS; currently working on a real-time chat platform and an SMS platform, and building Vindice, a self-hosted observability stack, on the side.
+Full-stack developer with a backend focus. I design Go services around a framework-free domain core, build Vue and Next.js frontends on top of them, and run everything in Docker with full observability on the LGTM stack. Previously delivered payment-gateway features under PCI DSS; currently working on a real-time chat platform and an SMS platform, and building two open-source products on the side: Vindice, a self-hosted observability stack, and Messario, self-hosted team chat for organizations.
 
 <p>
 <a href="https://github.com/b1ll1eee/vindice-observability"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/b1ll1eee/b1ll1eee/main/assets/flagship-dark.svg">
   <img alt="Vindice: self-hosted observability for logs, traces and metrics. One Go binary with Kafka and ClickHouse, about 1.5 GB of RAM at idle." src="https://raw.githubusercontent.com/b1ll1eee/b1ll1eee/main/assets/flagship-light.svg" width="100%">
+</picture></a>
+</p>
+
+<p>
+<a href="https://github.com/b1ll1eee/messario"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/b1ll1eee/b1ll1eee/main/assets/flagship-messario-dark.svg">
+  <img alt="Messario: self-hosted team chat for organizations. One Go binary with PostgreSQL, a Vue client and a Telegram-style bot API." src="https://raw.githubusercontent.com/b1ll1eee/b1ll1eee/main/assets/flagship-messario-light.svg" width="100%">
 </picture></a>
 </p>
 
